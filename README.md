@@ -13,4 +13,4 @@
 I think remmina is slow, compared to xfreerdp.
 makes it possible to copy and paste from <b>attacker machine</b> to <b>victim machine</b>
 
-<code>x<b>pform@attacker~: </b>freerdp +clipboard +window-drag /u:username /p:password /v:ip</code>
+<code><b>pform@attacker~: </b>xfreerdp +clipboard +window-drag /u:username /p:password /v:ip</code>
