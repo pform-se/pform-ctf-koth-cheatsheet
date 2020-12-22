@@ -8,7 +8,7 @@ sudo gobuster -dir -e php,html,htm,txt,log,conf -u http://IP -w /opt/wordlists/d
 
 # Connect to hosts
 
--RDP
+- RDP
 
 I think remmina is slow, compared to xfreerdp.
 makes it possible to copy and paste from attackermachine to victim machine
