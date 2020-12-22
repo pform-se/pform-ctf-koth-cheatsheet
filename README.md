@@ -34,13 +34,13 @@ Dont forget to check for hidden directory´s  somethimes they hidde them in plai
 
 <b>pform@attacker~: </b><code>ls -la</code>
 
-drwxr-xr-x  3 pform pform 4096 Dec 23 00:22 .
+drwxr-xr-x pform pform 4096 Dec 32 00:00 .
 
-drwxr-xr-x 21 pform pform 4096 Dec 22 20:26 ..
+drwxr-xr-x pform pform 4096 Dec 32 20:00 ..
 
-drwxr-xr-x  2 pform pform 4096 Dec 23 00:21 ... <b>  < - - - - - - - - - - - - ( 3 dots )</b>
+drwxr-xr-x pform pform 4096 Dec 32 00:00 ... <b>  < - - - - - - - - - - - - ( 3 dots )</b>
 
--rw-r--r--  1 pform pform    0 Dec 23 00:22 random-stuff.txt
+-rw-r--r-  pform pform    0 Dec 32 00:00 random-stuff.txt
 
 
 <h2>RDP</h2>
@@ -52,4 +52,4 @@ I think remmina is slow, compared to xfreerdp.
 <b>pform@attacker~: </b><code>xfreerdp +clipboard +window-drag /u:username /p:password /v:IP</code>
 
 
-
+To be contiuned...
