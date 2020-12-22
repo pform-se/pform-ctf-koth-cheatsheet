@@ -2,9 +2,8 @@
 
 - RECON 
 
-sudo nmap -Pn -sV -sC -oN nmap.log IP
-
-sudo gobuster -dir -e php,html,htm,txt,log,conf,flag -u http://IP -w /opt/wordlists/directory-list-2.3-medium.txt
+<code>sudo nmap -Pn -sV -sC -oN nmap.log IP</code>
+<code>sudo gobuster -dir -e php,html,htm,txt,log,conf,flag -u http://IP -w /opt/wordlists/directory-list-2.3-medium.txt</code>
 
 # Connect to hosts
 
