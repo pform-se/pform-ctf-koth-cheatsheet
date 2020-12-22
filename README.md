@@ -10,6 +10,6 @@ sudo gobuster -dir -e php,html,htm,txt,log,conf,flag -u http://IP -w /opt/wordli
 - RDP
 
 I think remmina is slow, compared to xfreerdp.
-makes it possible to copy and paste from <b>attacker machine</<b> to <b>victim machine</b>
+makes it possible to copy and paste from <b>attacker machine</b> to <b>victim machine</b>
 
 pform@attackerbox~ : xfreerdp +clipboard +window-drag /u:username /p:password /v:ip
