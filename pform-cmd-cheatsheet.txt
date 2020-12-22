@@ -1,3 +1,4 @@
 PFORM - Pentest CheatSheet
 As I always forget stuff when I play ctf and koth.
 
+Always start of with 
