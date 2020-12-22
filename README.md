@@ -2,11 +2,11 @@
 
 <b>RECON<b/> 
 
-<code><b>pform@attacker~: </b>rustscan -A IP</code>
+<b>pform@attacker~: </b><code>rustscan -A IP</code>
 
-<code><b>pform@attacker~: </b>sudo nmap -Pn -sV -sC -oN nmap.log IP</code>
+<b>pform@attacker~: </b><code>sudo nmap -Pn -sV -sC -oN nmap.log IP</code>
 
-<code><b>pform@attacker~: </b>sudo gobuster -dir -e php,html,htm,txt,log,conf,flag -u http://IP -w /opt/wordlists/directory-list-2.3-medium.txt</code>
+<b>pform@attacker~: </b><code>sudo gobuster -dir -e php,html,htm,txt,log,conf,flag -u http://IP -w /opt/wordlists/directory-list-2.3-medium.txt</code>
 
 Is SMB active?
 <code><b>pform@attacker~: </b>smbmap -H IP</code>
