@@ -1,10 +1,9 @@
 # PFORM - CTF / KOTH - Cheatsheet
 
-- Recon 
+- RECON 
 
-sudo nmap -Pn -sV -sC -oN nmap.log IP
-
-sudo gobuster -dir -e php,html,htm,txt,log,conf -u http://IP -w /opt/wordlists/directory-list-2.3-medium.txt
+> sudo nmap -Pn -sV -sC -oN nmap.log IP
+> sudo gobuster -dir -e php,html,htm,txt,log,conf -u http://IP -w /opt/wordlists/directory-list-2.3-medium.txt
 
 # Connect to hosts
 
