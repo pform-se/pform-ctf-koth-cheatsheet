@@ -32,13 +32,13 @@ Dont forget to check for hidden directory´s  somethimes they hidde them in plai
 
 <b>pform@attacker~: </b><code>ls -la</code>
 
-drwxr-xr-x pform pform 4096 Dec 32 00:00 .
+drwxr-xr-x pform pform 0069 Dec 32 00:00 .
 
-drwxr-xr-x pform pform 4096 Dec 32 20:00 ..
+drwxr-xr-x pform pform 0069 Dec 32 20:00 ..
 
-drwxr-xr-x pform pform 4096 Dec 32 00:00 ... <b>  < - - - - - - - - - - - - ( 3 dots )</b>
+drwxr-xr-x pform pform 0069 Dec 32 00:00 ... <b>  < - - - - - - - - - - - - ( 3 dots )</b>
 
--rw-r--r-  pform pform    0 Dec 32 00:00 random-stuff.txt
+-rw-r--r-  pform pform 0069 Dec 32 00:00 random-stuff.txt
 
 
 <h2>RDP</h2>
