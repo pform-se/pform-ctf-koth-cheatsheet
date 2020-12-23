@@ -45,7 +45,7 @@ drwxr-xr-x pform pform 4096 Dec 32 00:00 ... <b>  < - - - - - - - - - - - - ( 3 
 
 I think remmina is slow, compared to xfreerdp. 
 
-<b>+clipboard</> makes it possible to copy and paste from <b>attacker machine</b> to <b>victim machine</b>
+<b>+clipboard</b> makes it possible to copy and paste from <b>attacker machine</b> to <b>victim machine</b>
 
 <b>pform@attacker~: </b><code>xfreerdp +clipboard +window-drag /u:username /p:password /v:IP</code>
 
