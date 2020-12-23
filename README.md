@@ -38,7 +38,7 @@ drwxr-xr-x pform pform 0069 Dec 32 20:00 ..
 
 drwxr-xr-x pform pform 0069 Dec 32 00:00 ... <b>  < - - - - - - - - - - - - ( 3 dots )</b>
 
--rw-r--r-  pform pform 0069 Dec 32 00:00 random-stuff.txt
+-rw-r--r-x pform pform 0069 Dec 32 00:00 random-stuff.txt
 
 
 <h2>RDP</h2>
