@@ -8,7 +8,7 @@
 
 <b>pform@attacker~: </b><code>gobuster -dir -e php,html,htm,txt,log,conf,flag -u http://IP -w /usr/share/wordlists/directory-list-2.3-medium.txt</code>
 
-
+<b>pform@attacker~: </b><code>nikto -Display 1234EP -o report.html -Format htm -Tuning 123bde -host IP/code>
 
 <h2>SMB</h2>
 
@@ -26,9 +26,7 @@ Is the host vuln to anonymous login?
 
 <b>pform@attacker~: </b><code>ftp IP</code>
 
-<b>pform@attacker~: </b>Login: <code>anonymous</code>
-
-<b>pform@attacker~: </b>Password: <code>anonymous</code>
+<b>pform@attacker~: </b>Login: <code>anonymous</code> Password: <code>anonymous</code>
 
 Dont forget to check for hidden directory´s  somethimes they hidde them in plain sight like this:
 
@@ -52,4 +50,4 @@ I think remmina is slow, compared to xfreerdp.
 <b>pform@attacker~: </b><code>xfreerdp +clipboard +window-drag /u:username /p:password /v:IP</code>
 
 
-To be contiuned...
+<h2>To be contiuned...</h2>
