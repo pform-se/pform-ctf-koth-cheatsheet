@@ -1,5 +1,16 @@
 <h1>PFORM - CTF / KOTH - Cheatsheet</h1>
 
+<h2>Change IP on all scripts in a folder</h2>
+
+If you like me have a folders with reverse-shells and scripts for your CTF / Koth needs,
+
+and your IP changes just before the game starts, and no script have the correct ip.
+
+<b>pform@attacker~: </b><code>cd script-folder/</code>
+
+<b>pform@attacker~script-folder/:<code> grep -rl old-ip * | xargs sed -i 's/old-ip/new-ip/g'</code>
+
+
 <h2>RECON</h2> 
 
 <b>pform@attacker~: </b><code>rustscan -A IP</code>
@@ -19,7 +30,6 @@
 <b>pform@attacker~: </b><code>smbclient -L \\\\IP\\C$ -U guest -W WORKGROUP</code>
 
 
-
 <h2>FTP</h2>
 
 Is the host vuln to anonymous login?
@@ -28,7 +38,7 @@ Is the host vuln to anonymous login?
 
 <b>pform@attacker~: </b>Login: <code>anonymous</code> Password: <code>anonymous</code>
 
-Dont forget to check for hidden directory´s  somethimes they hidde them in plain sight like this:
+Dont forget to check for hidden directory´s  somethimes they hide them in plain sight like this:
 
 <b>pform@attacker~: </b><code>ls -la</code>
 
@@ -45,9 +55,20 @@ drwxr-xr-x pform pform 0069 Dec 32 00:00 ... <b>  < - - - - - - - - - - - - ( 3 
 
 I think remmina is slow, compared to xfreerdp. 
 
-<b>+clipboard</b> makes it possible to copy and paste from <b>attacker machine</b> to <b>victim machine</b>
+<b>+clipboard</b> makes it possible to copy from <b>attacker machine</b> to <b>victim machine</b>
 
 <b>pform@attacker~: </b><code>xfreerdp +clipboard +window-drag /u:username /p:password /v:IP</code>
 
+
+<h2>Listners</2>
+
+<b>Netcat</b>
+
+<b>pform@attacker~: </b><code>nc -lnvp 5555</code>
+
+<b>pwncat</b>
+
+<b>pform@attacker~: </b><code>pwncat -l -p 5555<code>
+  
 
 <h2>To be contiuned...</h2>
