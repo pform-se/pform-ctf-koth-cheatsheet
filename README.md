@@ -309,8 +309,20 @@ Extract crackable hash
 
 Crack Hash
 
-<code>john -- wordlist=superlist.lst --format=gpg wordlisthash-from-file</code>
+<code>john --format=gpg --wordlist=superlist.lst  wordlisthash-from-file</code>
 
 <b>Crack sha512 (deafult unix root hash)</b>
 
 <code>hashcat -m 1800 -a 0 -o hash-found.txt userhash.txt /opt/wordlists/rockyou.txt</code>
+
+<b>Identify hash</b>
+
+example 1.
+
+<code>hash-identifier</code>
+
+<b>PAST in you hash</b>
+
+example 2.
+
+<code>john hash-file.txt</code>
