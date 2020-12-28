@@ -71,11 +71,8 @@ I think remmina is slow, compared to xfreerdp.
   
 I prefer pwncat as you can just press<b>"CTRL+D"</b> and download and upload files like this:
 
-<b>pform@local~: </b><code>download /etc/passwd<c/ode>
+<b>pform@local~: </b><code>download /etc/passwd</code>
 
 <b>pform@local~: </b><code>upload ~/super-ninja-scripts/hightech-privesc-0day.py</code>
 
 Then Press <b>"CTRL+D"</b> again to return to the reverse-shell.
-
-
-<h3>To be contiuned...</h3>
