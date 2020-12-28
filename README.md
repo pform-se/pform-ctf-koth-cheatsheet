@@ -34,8 +34,6 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <b>Upload :</b> put
 
-<b>Read files :</b> more 
-
 
 
 <h2>FTP</h2>
@@ -57,6 +55,13 @@ drwxr-xr-x pform pform 0069 Dec 32 20:00 ..
 drwxr-xr-x pform pform 0069 Dec 32 00:00 ... <b>     < - - - - - - - - - - - - ( 3 dots )</b>
 
 -rw-r--r-x pform pform 0069 Dec 32 00:00 random-stuff.txt
+
+<b>Download :</b> get, or mget * (to download all files in folder)
+
+<b>Upload :</b> put
+
+<b>Read files :</b> more 
+
 
 
 <h2>RDP</h2>
