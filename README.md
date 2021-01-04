@@ -384,7 +384,7 @@ Crack Hash
 
 <code>john extracted_hash --wordlist=/opt/wordlists/rockyou.txt</code>
 
-"Don´t foreget to chmod 600 on the id_rsa file"
+OBS! - Don´t foreget to chmod 600 on the id_rsa file
 
 
 
