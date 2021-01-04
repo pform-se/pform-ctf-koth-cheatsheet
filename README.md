@@ -30,7 +30,7 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <b>In this example 10.10.10.10 is the old-ip and 20.20.20.20 is the new-ip.</b>
 
-<h2>Use your bash as a portscanner</h2>
+<h2>Use Bash for portscan</h2>
 
 <b>(Use bash to portscan new host thats only accesible from victim machine, with no other portscanner in reach.)</b>
 
