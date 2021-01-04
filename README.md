@@ -104,7 +104,7 @@ drwxr-xr-x pform pform 0069 Dec 32 00:00 ... <b>     < - - - - - - - - - - - - (
 
 <b>Upload :</b> <code>mget *</code> (Download all files in the folder)
 
-<b>Read files :</b> more 
+<b>Read files :</b> <code>more</code>
 
 
 
