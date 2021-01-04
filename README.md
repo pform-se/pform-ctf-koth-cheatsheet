@@ -69,12 +69,12 @@ and your IP changes just before the game starts, and no script have the correct 
 <br>
 <h2>Mount smb share</h2>
 
-<code>smbmount "\\\\10.10.20.20\\super-secret-folder" -U hacked-account -c 'mount /mnt/super-secret-folder/ -u 500 -g 100'</code>
+<b>pform@attacker~: </b><code>smbmount "\\\\10.10.20.20\\super-secret-folder" -U hacked-account -c 'mount /mnt/super-secret-folder/ -u 500 -g 100'</code>
 
 <h2>Map out smb shares</h2>
 
-<code>smbmap -H 10.10.20.20</code>
-<code>smbmap -u hacked-account -p supersecretpassword123 -d workgroup -H 10.10.20.20</code>
+<b>pform@attacker~: </b><code>smbmap -H 10.10.20.20</code>
+<b>pform@attacker~: </b><code>smbmap -u hacked-account -p supersecretpassword123 -d workgroup -H 10.10.20.20</code>
 
 
 
