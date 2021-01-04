@@ -1,4 +1,22 @@
-<h1>PFORM - CTF / KOTH - Cheatsheet</h1>
+<h1>PFORM - CTF / KOTH - Cheatsheet</h1><br><br>
+
+<h2>Some random Tips and Tricks</h2>
+
+<h2>SSH Tunneling</h2>
+
+Tunnel traffic over ssh to your attacker machine so you can act as the machine you have ssh in to.
+
+Example.
+
+The victim box have access to a Jenkins server running on ip 172.17.0.2 port:8080.
+
+<b>pform@attacker~: </b><code>ssh -L 4444:172.17.0.2:8080 aubreanna@10.10.20.20</code>
+
+Now you just open your webbrowser and surf to: <code>http://localhost:4444/</code>
+
+And you can access the server running Jenkins as it was on your localnetwork.
+
+<br>
 
 <h2>Change IP on all scripts in a folder</h2>
 
@@ -8,7 +26,7 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <b>pform@attacker~: </b><code>cd ~/super-ninja-scripts/</code>
 
-<b>pform@attacker~script-folder/:<code> grep -rl 10.10.10.10 * | xargs sed -i 's/10.10.10.10/20.20.20.20/g'</code>
+<b>pform@attacker~script-folder/:<code>grep -rl 10.10.10.10 * | xargs sed -i 's/10.10.10.10/20.20.20.20/g'</code>
 
 <b>In this example 10.10.10.10 is the old-ip and 20.20.20.20 is the new-ip.</b>
 
@@ -158,7 +176,7 @@ I prefer pwncat as you can just press<b>"CTRL+D"</b> and download and upload fil
 Then Press <b>"CTRL+D"</b> again to return to the reverse-shell.
 
 
-<h1>Revers-Shell</h1>
+<h1>Reverse-Shell</h1>
 
 Pentestmonkey <li>http://pentestmonkey.net/</li>
 
@@ -225,8 +243,10 @@ This java reverse-shell works in Jenkins script console.
 <h1>Privesc</h1>
 
 <h2>Search programs to privesc</h2>
-<b>sudo -l</b> lists all commands your USER can use with SUDO permissions
-if user dont have premisions try:
+
+<b>sudo -l</b> lists all commands your USER can use with SUDO permissions.
+
+If user dont have premisions try:
 
 Linpeas <li>https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite</li>
 
