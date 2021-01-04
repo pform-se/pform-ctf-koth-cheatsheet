@@ -461,9 +461,9 @@ and your IP changes just before the game starts, and no script have the correct 
 
 Run this in the folder you have the files you want to upload.
 
-<b>pform@attacker~: </b>python -m SimpleHTTPServer 5555
+<b>pform@attacker~: </b><code>python -m SimpleHTTPServer 5555</code>
 
-<b>pform@attacker~: </b>python3 -m http.server 5555
+<b>pform@attacker~: </b><code>python3 -m http.server 5555</code>
 
 The use wget to download the file like this:
 
