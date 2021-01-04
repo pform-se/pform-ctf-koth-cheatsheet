@@ -62,18 +62,19 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <b>pform@attacker~: </b><code>smbclient -L \\\\10.10.20.20\\C$ -U guest -W WORKGROUP</code>
 
-<b>Download :</b> get
+<b>Download :</b> <code>get</code>
 
-<b>Upload :</b> put
+<b>Upload :</b> <code>put</code>
 
+<br>
 <h2>Mount smb share</h2>
 
 <code>smbmount "\\\\10.10.20.20\\super-secret-folder" -U hacked-account -c 'mount /mnt/super-secret-folder/ -u 500 -g 100'</code>
 
 <h2>Map out smb shares</h2>
 
-smbmap -H 10.10.20.20
-smbmap -u hacked-account -p supersecretpassword123 -d workgroup -H 10.10.20.20
+<code>smbmap -H 10.10.20.20</code>
+<code>smbmap -u hacked-account -p supersecretpassword123 -d workgroup -H 10.10.20.20</code>
 
 
 
@@ -99,7 +100,9 @@ drwxr-xr-x pform pform 0069 Dec 32 00:00 ... <b>     < - - - - - - - - - - - - (
 
 <b>Download :</b> get, or mget * (to download all files in folder)
 
-<b>Upload :</b> put
+<b>Upload :</b> <code>put</code>
+
+<b>Upload :</b> <code>mget *</code> (Download all files in the folder)
 
 <b>Read files :</b> more 
 
