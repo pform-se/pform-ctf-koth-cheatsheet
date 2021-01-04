@@ -343,7 +343,7 @@ Then you just have to look and wait in your lister terminal for 1 min.
 
 <b>example - ssh</b>
 
-<code>hydra -l admin -P /opt/wordlists/rockyou.txt ssh://10.10.20.20</code>
+<code>hydra -l admin -P /opt/wordlists/rockyou.txt ssh://10.10.20.20 -p 22</code>
 
 <br><h1>Password Cracking</h1>
 
