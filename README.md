@@ -235,7 +235,7 @@ This java reverse-shell works in Jenkins script console.
 
 <h2>Search programs to privesc</h2>
 
-<b>sudo -l</b> lists all commands your USER can use with SUDO permissions.
+<b><code>sudo -l</b></code> lists all commands your USER can use with SUDO permissions.
 
 If user dont have premisions try:
 
