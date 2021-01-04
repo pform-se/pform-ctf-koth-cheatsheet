@@ -10,7 +10,7 @@ Example.
 
 The victim box have access to a Jenkins server running on ip 172.17.0.2 port:8080.
 
-<b>pform@attacker~: </b><code>ssh -L 4444:172.17.0.2:8080 aubreanna@10.10.20.20</code>
+<b>pform@attacker~: </b><code>ssh -L 4444:172.17.0.2:8080 hacked-account@10.10.20.20</code>
 
 Now you just open your webbrowser and surf to: <code>http://localhost:4444/</code>
 
