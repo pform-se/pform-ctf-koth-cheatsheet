@@ -181,8 +181,10 @@ LinEnum <li>https://github.com/rebootuser/LinEnum</li>
 
 <h1>GTFObins</h1>
 
+
 Heres a lists of a few programs that can be used to privesc, for more check the link below.
-GTFObins <li>https://gtfobins.github.io/</li>
+
+<b>GTFObins</b> <li>https://gtfobins.github.io/</li>
 
 
 <h2>bash</h2>
