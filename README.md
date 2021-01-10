@@ -365,11 +365,11 @@ Then you just have to look and wait in your lister terminal for 1 min.
 
 <b>or</b>
 
-<b>pform@attacker~: </b><code>zip2john zip.zip > zip.hash</code>
+<b>pform@attacker~: </b><code>zip2john zip.zip > ziphash.txt</code>
 
 <b>pform@attacker~: </b><code>john --format=PKZIP ziphash.txt</code>
 
-<b>pform@attacker~: </b><code>john --wordlist /opt/wordlists/rockyou.txt hash.txt</code>
+<b>pform@attacker~: </b><code>john --wordlist /opt/wordlists/rockyou.txt ziphash.txt</code>
 
 <b>PGP-Key</b>
 
