@@ -547,7 +547,7 @@ The use curl to download the file like this:
 
 <h2>SCP</h2>
 
-<b>pform@attacker~: </b>scp - id_rsa ~/scripts/superprivesc0day.sh hacked-account@10.10.20.20/home/hacked-account/.hidden/privesc.sh</code>
+<b>pform@attacker~: </b><code>scp - id_rsa ~/scripts/superprivesc0day.sh hacked-account@10.10.20.20/home/hacked-account/.hidden/privesc.sh</code>
 
 <h2>With NETCAT</h2>
 
