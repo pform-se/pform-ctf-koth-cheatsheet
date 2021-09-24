@@ -554,4 +554,4 @@ echo "something" > /dev/pts/ # and the number
 cat /dev/urandom > /dev/pts/ # and the number
 ```
 
-> HACK THE PLANET | pform-se and Itsnexn
+> HACK THE PLANET | pform and Itsnexn
