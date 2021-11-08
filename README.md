@@ -69,7 +69,7 @@ export IP="10.10.10.10"
 
 [**RustScan:**](https://github.com/RustScan/RustScan)
 ```
-rustscan -A $IP`
+rustscan -A $IP
 ```
 
 [**Nmap:**](https://nmap.org/)</br>
@@ -91,7 +91,7 @@ nmap -p- $IP
 
 [**Enum4linux:**](https://www.kali.org/tools/enum4linux/)
 ```
-enum4linux $IP`
+enum4linux $IP
 ```
 
 [**Gobuster:**](https://github.com/OJ/gobuster)
