@@ -96,7 +96,7 @@ enum4linux $IP
 
 [**Gobuster:**](https://github.com/OJ/gobuster)
 ```
-gobuster dir -e php,html,htm,txt,log,conf,flag -u http://$IP -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt`
+gobuster dir -e php,html,htm,txt,log,conf,flag -u http://$IP -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
 ```
 
 [**Wfuzz:**](https://github.com/xmendez/wfuzz)
